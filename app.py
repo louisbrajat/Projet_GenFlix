@@ -23,13 +23,14 @@ app.config["SESSION_SQLALCHEMY"] = db
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template("base.html")
+    return render_template("login.html")
 
 db.init_app(app)
 sess.init_app(app)
 
 with app.app_context():
     db.create_all()
+
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
