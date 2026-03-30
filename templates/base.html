@@ -16,8 +16,12 @@
         <h1>GenFlix</h1>
         <!-- faire le systeme de qui on voit grace a la session -->
         <div class="droite">
-            <button class="logout">Se deconnecter</button>
-            <!--<button class="login">Se connecter</button> -->
+            {% if session['username'] %}
+               <button class="logout">Se deconnecter</button>
+            {% else %}
+                <button class="login">Se connecter</button>
+            {% endif %}
+
             <p>Username</p>
         </div>
         
