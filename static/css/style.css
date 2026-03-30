@@ -1,5 +1,7 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0; 
 }
 
 body {
@@ -12,4 +14,40 @@ body {
 
 header{
     background-color: #f2b6c180;
+    font-family: "Montserrat", sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 5vh;
+    padding-right: 5vh;
+    height: 6vh;
 }
+
+header h1{
+    font-size: 4vh;
+}
+
+.droite{
+    display: flex;
+    flex-direction: row;
+    gap: 5vh;
+    align-items: center;
+    font-size: 2vh;
+}
+
+.droite p {
+    color:#733F49;
+    font-weight: bold;
+}
+
+button{
+    background-color:#9D7179 ;
+    border-radius: 0.5vh;
+    border: 0.4vh solid #733F49;
+    color: white;
+    padding: 1vh;
+    font-size: 1.5vh;
+    cursor: pointer;
+}
+
