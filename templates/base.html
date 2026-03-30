@@ -18,11 +18,10 @@
         <div class="droite">
             {% if session['username'] %}
                <button class="logout">Se deconnecter</button>
+               <p>{{session['username']}}</p>
             {% else %}
                 <button class="login">Se connecter</button>
             {% endif %}
-
-            <p>Username</p>
         </div>
         
     </header>
