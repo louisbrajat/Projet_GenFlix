@@ -1,0 +1,263 @@
+/* =============================================
+   VARIABLES & RESET
+============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:        #f4f1ec;
+  --card-bg:   #ffffff;
+  --text:      #1a1a1a;
+  --muted:     #888880;
+  --accent:    #c8a96e;
+  --accent-dk: #a8843e;
+  --border:    #e2ddd6;
+  --radius:    14px;
+  --shadow:    0 20px 60px rgba(0,0,0,0.08);
+
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* =============================================
+   BACKGROUND BLOBS
+============================================= */
+.background {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+}
+
+.blob-1 {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, #c8a96e55, transparent 70%);
+  top: -100px;
+  left: -80px;
+  animation: drift 12s ease-in-out infinite alternate;
+}
+
+.blob-2 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, #b5cbc888, transparent 70%);
+  bottom: -80px;
+  right: -60px;
+  animation: drift 16s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(30px, 20px) scale(1.05); }
+}
+
+/* =============================================
+   CARD
+============================================= */
+.card {
+  position: relative;
+  z-index: 1;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem 2rem;
+  width: 100%;
+  max-width: 340px;
+  animation: fadeUp 0.5s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================================
+   CARD HEADER
+============================================= */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 2rem;
+}
+
+.logo__dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.logo__name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  color: var(--text);
+}
+
+.card__title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+
+.card__subtitle {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+/* =============================================
+   FORM
+============================================= */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form__label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.form__label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.form__link {
+  font-size: 0.8rem;
+  color: var(--accent-dk);
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.2s;
+}
+.form__link:hover { color: var(--accent); }
+
+.form__input-wrapper {
+  position: relative;
+}
+
+.form__input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text);
+  background: #faf9f7;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.form__input::placeholder {
+  color: #c4bfb8;
+}
+
+.form__input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.15);
+  background: #fff;
+}
+
+/* Password field — padding normal */
+.form__input {
+  padding: 0.75rem 1rem;
+}
+
+/* =============================================
+   BUTTON
+============================================= */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.5rem;
+  background: var(--text);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: 0.3rem;
+}
+
+.btn:hover {
+  background: #333;
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* =============================================
+   CARD FOOTER
+============================================= */
+.card__footer {
+  margin-top: 1.8rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media (max-width: 480px) {
+  .card {
+    padding: 2.2rem 1.6rem;
+  }
+
+  .card__title {
+    font-size: 1.9rem;
+  }
+}
