@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0f0f0f;
+    color: white;
+}
+
+/* Layout */
+.dashboard {
+    padding: 30px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Titres */
+h1 {
+    color: #ff4da6;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: #ff4da6;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+/* Barre recherche */
+.search {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0 30px;
+}
+
+.search input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #1c1c1c;
+    color: white;
+}
+
+.search input::placeholder {
+    color: #888;
+}
+
+.search button {
+    padding: 12px 18px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #00cc66, #00ff99);
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search button:hover {
+    transform: scale(1.05);
+}
+
+/* Cartes */
+.cards {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 12px;
+    min-width: 150px;
+    text-align: center;
+    transition: 0.3s;
+    border: 1px solid transparent;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border: 1px solid #00cc66;
+}
+
+/* Préférences */
+.prefs {
+    margin-top: 30px;
+    padding: 15px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    border-left: 5px solid #ff4da6;
+}
+
+/* Footer */
+footer {
+    margin-top: 50px;
+    padding: 20px;
+    text-align: center;
+    background: #111;
+    border-top: 1px solid #222;
+    color: #aaa;
+}

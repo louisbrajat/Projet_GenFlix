@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<main class="home">
+
+    <div class="hero">
+        <h1 id="welcome">Bienvenue 👋</h1>
+        <p>Installe-toi… et découvre ta prochaine série</p>
+    </div>
+
+    <div class="actions">
+        <a href="/search" class="btn">Explorer</a>
+    </div>
+
+</main>
+
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+
+{% endblock %}
