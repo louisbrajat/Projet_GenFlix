@@ -2,59 +2,106 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Page de connexion</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-  <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Connexion</title>
+  <link rel="stylesheet" href="login.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 </head>
 <body>
 
-  <!-- ══════════════════════════════════════════════════════════
-       EN-TÊTE
-  ══════════════════════════════════════════════════════════ -->
-  <header class="app-header">
-    <div class="header-content">
-      <h1 class="header-title">Page de connexion</h1>
-      <p class="header-sub">TP — Flask</p>
+  <div class="background">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <main class="card">
+
+    <div class="card__header">
+      <div class="logo">
+        <span class="logo__dot"></span>
+        <span class="logo__name">Portail</span>
+      </div>
+      <h1 class="card__title">Bienvenue.</h1>
+      <p class="card__subtitle">Connectez-vous à votre espace.</p>
     </div>
-  </header>
 
-  <!-- ══════════════════════════════════════════════════════════
-       VUE 1 — FORMULAIRE
-  ══════════════════════════════════════════════════════════ -->
-  <main id="viewForm" class="view active">
-    <div class="card">
-      <h2 class="section-title">Se connecter</h2>
+    <form class="form" action="#" method="POST" novalidate>
 
-      <form id="authForm" novalidate>
+      <div class="form__group">
+        <label class="form__label" for="email">Adresse e-mail</label>
+        <input
+          class="form__input"
+          type="email"
+          id="email"
+          name="email"
+          placeholder="vous@exemple.com"
+          autocomplete="email"
+          required
+        />
+      </div>
 
-        <div class="field-group">
-          <label for="username">Nom d'utilisateur</label>
-          <input type="text" id="username" name="username" required />
+      <div class="form__group">
+        <div class="form__label-row">
+          <label class="form__label" for="password">Mot de passe</label>
+          <a class="form__link" href="#">Mot de passe oublié ?</a>
         </div>
-
-        <div class="field-group">
-          <label for="password">Mot de passe</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary" id="btnLogin">
-            Se connecter
+        <div class="form__input-wrapper">
+          <input
+            class="form__input"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+            required
+          />
+          <button type="button" class="form__eye" id="togglePassword" aria-label="Afficher le mot de passe">
+            <!-- Eye icon -->
+            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
           </button>
         </div>
+      </div>
 
-      </form>
-    </div>
+      <div class="form__check">
+        <input type="checkbox" id="remember" name="remember" class="form__checkbox"/>
+        <label for="remember" class="form__check-label">Se souvenir de moi</label>
+      </div>
+
+      <button class="btn" type="submit">
+        <span>Se connecter</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </button>
+
+    </form>
+
+    <p class="card__footer">
+      Pas encore de compte ? <a class="form__link" href="#">Créer un compte</a>
+    </p>
+
   </main>
 
-  <!-- ══════════════════════════════════════════════════════════
-       PIED DE PAGE
-  ══════════════════════════════════════════════════════════ -->
-  <footer class="app-footer">
-    <span>TP Web Dev — M2</span>
-  </footer>
+  <script>
+    const toggle = document.getElementById('togglePassword');
+    const pwd = document.getElementById('password');
+    const icon = document.getElementById('eyeIcon');
 
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    toggle.addEventListener('click', () => {
+      const isHidden = pwd.type === 'password';
+      pwd.type = isHidden ? 'text' : 'password';
+      icon.innerHTML = isHidden
+        ? `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+           <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+           <line x1="1" y1="1" x2="23" y2="23"/>`
+        : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+           <circle cx="12" cy="12" r="3"/>`;
+    });
+  </script>
+
 </body>
 </html>
