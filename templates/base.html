@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+</head>
+<body>
+    <header>
+        <p>GenFlix</p>
+        <!-- faire le systeme de qui on voit grace a la session -->
+        <button class="logout">Se deconnecter</button>
+        <button class="login">Se connecter</button>
+        <p>Username</p>
+        
+    </header>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
