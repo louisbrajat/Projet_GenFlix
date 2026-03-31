@@ -1,0 +1,119 @@
+.reco-container {
+    background-color: black;
+    min-height: calc(100vh - 6vh);
+    padding: 5vh;
+    color: white;
+}
+
+h2 {
+    color: #2ecc71;
+    margin-bottom: 1vh;
+    font-size: 5vh;
+}
+
+.subtitle {
+    color: #f2b6c1;
+    margin-bottom: 4vh;
+    font-size: 2vh;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4vh;
+}
+
+.card {
+    width: 18%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100%;
+    height: 22vh;
+    object-fit: cover;
+    border-radius: 1vh;
+}
+
+.card p {
+    margin-top: 1vh;
+    font-size: 1.8vh;
+    color: white;
+}
+
+.actions {
+    margin-top: 2vh;
+    margin-bottom: 3vh;
+}
+
+#gemini-btn {
+    background-color: #2ecc71;
+    border: 0.3vh solid #239b56;
+    color: white;
+    padding: 1.2vh 2.2vh;
+    border-radius: 0.8vh;
+    font-size: 1.6vh;
+    cursor: pointer;
+}
+
+#gemini-btn:hover {
+    background-color: #28b765;
+}
+
+.loading {
+    color: #f2b6c1;
+    font-size: 1.8vh;
+    margin-bottom: 2vh;
+}
+
+.gemini-result {
+    background-color: rgba(242, 182, 193, 0.12);
+    border-left: 0.4vh solid #2ecc71;
+    padding: 2vh;
+    border-radius: 1vh;
+    margin-bottom: 4vh;
+}
+
+.gemini-result h3 {
+    color: #2ecc71;
+    margin-bottom: 1.5vh;
+    font-size: 2.2vh;
+}
+
+#gemini-text {
+    color: white;
+    line-height: 1.6;
+    white-space: pre-line;
+    font-size: 1.8vh;
+}
+
+.hidden {
+    display: none;
+}
+
+.footer {
+    background-color: #f2b6c1;
+    text-align: center;
+    padding: 1.2vh;
+}
+
+.footer-logo {
+    color: #733F49;
+    font-weight: bold;
+    font-size: 1.6vh;
+}
+
+.footer-text {
+    color: #5a2e36;
+    font-size: 1.2vh;
+}
+
+.footer-copy {
+    color: #5a2e36;
+    font-size: 1vh;
+}

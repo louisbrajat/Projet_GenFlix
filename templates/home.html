@@ -5,22 +5,25 @@
 
 <div class="home">
     <div class="home-overlay">
-        <div class="welcome-text">
-            <h1>Bienvenue 👋</h1>
-            <p>Bienvenue sur GenFlix</p>
-            <p>Bienvenido a GenFlix</p>
-            <p dir="rtl">مرحبًا بك في GenFlix</p>
+        <div class="welcome-text" id="welcome-box">
+            <p class="subtitle">VOTRE UNIVERS DE SÉRIES</p>
+            <h1 id="welcome">Bienvenue</h1>
+
+            <div class="languages">
+                <p>Bienvenue sur GenFlix</p>
+                <p>Bienvenido a GenFlix</p>
+                <p class="japanese">GenFlixへようこそ</p>
+                <p class="arabic" dir="rtl">مرحبًا بك في جينفليكس</p>
+            </div>
         </div>
+
+        <footer class="footer">
+            <p class="footer-logo">GenFlix</p>
+            <p class="footer-text">Votre plateforme de séries</p>
+            <p class="footer-copy">© 2026</p>
+        </footer>
     </div>
 </div>
-
-<footer class="footer">
-    <div class="footer-content">
-        <p class="logo">GenFlix</p>
-        <p class="tagline">Regarde. Détends-toi. Reviens.</p>
-        <p class="copyright">© 2026 GenFlix</p>
-    </div>
-</footer>
 
 <script src="{{ url_for('static', filename='js/home.js') }}" defer></script>
 {% endblock %}

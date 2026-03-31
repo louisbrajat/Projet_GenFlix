@@ -1,12 +1,12 @@
-const titles = [
-    "Bienvenue",
-    "Bienvenido",
-    "مرحبًا",
-    "Welcome"
-];
-
+const titles = ["Bienvenue", "Bienvenido", "Welcome", "ようこそ"];
 let index = 0;
-const title = document.querySelector(".welcome-text h1");
+
+const title = document.getElementById("welcome");
+const welcomeBox = document.getElementById("welcome-box");
+
+window.addEventListener("load", () => {
+    welcomeBox.classList.add("show");
+});
 
 setInterval(() => {
     index = (index + 1) % titles.length;
