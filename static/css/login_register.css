@@ -1,0 +1,220 @@
+/* =============================================
+   VARIABLES — couleurs et polices réutilisables
+============================================= */
+:root {
+  --bg:      #f4f1ec;   /* couleur de fond de la page */
+  --card-bg: #ffffff;   /* couleur de fond de la carte */
+  --text:    #1a1a1a;   /* couleur du texte principal */
+  --muted:   #888880;   /* couleur du texte secondaire (gris) */
+  --accent:  #c8a96e;   /* couleur dorée pour les focus et liens */
+  --border:  #e2ddd6;   /* couleur des bordures des inputs */
+}
+
+/* =============================================
+   RESET — supprime les marges par défaut du navigateur
+============================================= */
+* {
+  box-sizing: border-box; /* padding inclus dans la taille de l'élément */
+  margin: 0;
+  padding: 0;
+}
+
+/* =============================================
+   PAGE — centre la carte au milieu de l'écran
+============================================= */
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--bg);
+  display: flex;
+  align-items: center;     /* centrage vertical */
+  justify-content: center; /* centrage horizontal */
+  min-height: 100vh;       /* prend toute la hauteur de l'écran */
+}
+
+/* =============================================
+   FOND — les deux taches colorées derrière la carte
+============================================= */
+.background {
+  position: fixed;         /* reste en place même si on scroll */
+  inset: 0;                /* couvre toute la fenêtre */
+  pointer-events: none;    /* les clics traversent ce div */
+  z-index: 0;              /* derrière tout le reste */
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;      /* forme circulaire */
+  filter: blur(80px);      /* effet flou pour la tache lumineuse */
+  opacity: 0.4;
+}
+
+.blob-1 {
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, #c8a96e55, transparent 70%);
+  top: -100px; left: -80px;
+  animation: drift 12s ease-in-out infinite alternate;
+}
+
+.blob-2 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, #b5cbc888, transparent 70%);
+  bottom: -80px; right: -60px;
+  animation: drift 16s ease-in-out infinite alternate-reverse;
+}
+
+/* animation : le blob se déplace légèrement en boucle */
+@keyframes drift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(30px, 20px); }
+}
+
+/* =============================================
+   CARTE — le bloc blanc central
+============================================= */
+.card {
+  position: relative;
+  z-index: 1;              /* au-dessus du fond */
+  background: var(--card-bg);
+  border-radius: 14px;     /* coins arrondis */
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08); /* ombre portée douce */
+  padding: 2rem;
+  width: 100%;
+  max-width: 340px;        /* largeur maximale de la carte */
+  animation: fadeUp 0.5s ease both;
+}
+
+/* =============================================
+   LOGO
+============================================= */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 2rem;
+}
+
+.logo__dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+}
+
+/* =============================================
+   TITRES
+============================================= */
+.card__title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.card__subtitle {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+/* =============================================
+   FORMULAIRE — disposition verticale des champs
+============================================= */
+.form {
+  display: flex;
+  flex-direction: column; /* empile les champs verticalement */
+  gap: 1.3rem;            /* espace entre chaque champ */
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;            /* espace entre le label et l'input */
+}
+
+.form__label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* =============================================
+   INPUTS
+============================================= */
+.form__input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: #faf9f7;
+  outline: none; /* supprime le contour bleu natif du navigateur */
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form__input::placeholder {
+  color: #c4bfb8;
+}
+
+/* style quand l'utilisateur clique sur un input */
+.form__input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.15); /* halo doré autour */
+  background: #fff;
+}
+
+/* =============================================
+   BOUTON
+============================================= */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.5rem;
+  background: var(--text);  /* fond noir */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: 0.3rem;
+}
+
+.btn:hover {
+  background: #333;
+  transform: translateY(-1px);  /* monte d'1px au survol */
+}
+
+.btn:active {
+  transform: translateY(0);     /* redescend au clic */
+}
+
+/* =============================================
+   LIENS
+============================================= */
+.form__link {
+  font-size: 0.8rem;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.form__link:hover { color: #a8843e; }
+
+/* =============================================
+   FOOTER DE LA CARTE
+============================================= */
+.card__footer {
+  margin-top: 1.8rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* =============================================
+   RESPONSIVE — adaptation sur mobile
+============================================= */
+@media (max-width: 480px) {
+  .card { padding: 2rem 1.5rem; }
+  .card__title { font-size: 1.9rem; }
+}

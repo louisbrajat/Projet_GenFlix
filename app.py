@@ -4,12 +4,14 @@ from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
 from models import User
+from routes import auth
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
 
 db = SQLAlchemy()
 sess = Session()
+
 
 
 app = Flask(__name__)
@@ -21,9 +23,11 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SESSION_TYPE"] = "sqlalchemy"
 app.config["SESSION_SQLALCHEMY"] = db
 
+app.register_blueprint(auth)
+
 @app.route('/', methods=['GET'])
 def home():
-    return render_template("base.html")
+    return render_template("login.html")
 
 db.init_app(app)
 sess.init_app(app)
