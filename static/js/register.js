@@ -1,43 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  const authForm = document.getElementById('form_login');
-  const btnLogin = document.getElementById('btnLogin');
-
-  authForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    btnLogin.disabled = true;
-    btnLogin.textContent = 'Connexion en cours…';
-
-    // FormData récupère automatiquement tous les champs du formulaire
-    const formData = new FormData(authForm);
-
-    try {
-      const response = await fetch('/login', {
-        method: 'POST',
-        body: formData,  // envoi en form data, pas JSON
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        window.location.href = '/';
-      } else {
-        alert(result.message);
-      }
-
-    } catch (err) {
-      alert('Erreur : ' + err.message);
-    } finally {
-      btnLogin.disabled = false;
-      btnLogin.textContent = 'Se connecter';
-    }
-  });
-
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-
   const registerForm = document.getElementById('registerForm');
   const btnRegister  = document.getElementById('btnRegister');
 

@@ -6,12 +6,10 @@ from werkzeug.security import check_password_hash
 from models import User
 from routes import auth
 
-from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
+from models import db
 
-db = SQLAlchemy()
 sess = Session()
-
 
 app = Flask(__name__)
 
@@ -26,7 +24,8 @@ app.register_blueprint(auth)
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template("login.html")
+    pseudo = session.get('pseudo')
+    return render_template('home.html', pseudo=pseudo)
 
 @app.route('/test-home', methods=['GET'])
 def test_home():
