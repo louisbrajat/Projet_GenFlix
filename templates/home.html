@@ -1,20 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 
-<main class="home">
-
-    <div class="hero">
-        <h1 id="welcome">Bienvenue 👋</h1>
-        <p>Installe-toi… et découvre ta prochaine série</p>
+<div class="home">
+    <div class="home-overlay">
+        <div class="welcome-text">
+            <h1>Bienvenue 👋</h1>
+            <p>Bienvenue sur GenFlix</p>
+            <p>Bienvenido a GenFlix</p>
+            <p dir="rtl">مرحبًا بك في GenFlix</p>
+        </div>
     </div>
+</div>
 
-    <div class="actions">
-        <a href="/search" class="btn">Explorer</a>
+<footer class="footer">
+    <div class="footer-content">
+        <p class="logo">GenFlix</p>
+        <p class="tagline">Regarde. Détends-toi. Reviens.</p>
+        <p class="copyright">© 2026 GenFlix</p>
     </div>
+</footer>
 
-</main>
-
-<script src="{{ url_for('static', filename='js/home.js') }}"></script>
-
+<script src="{{ url_for('static', filename='js/home.js') }}" defer></script>
 {% endblock %}
