@@ -72,7 +72,10 @@ def register():
     return render_template('register.html')
 
 
-
+@auth.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
 
 
 @api.route("/api/AjouterSerie", methods=["POST"])
