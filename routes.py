@@ -1,9 +1,9 @@
-from flask import Blueprint, Flask, render_template, session, redirect,url_for, request
+from flask import Blueprint, Flask, render_template, session, redirect,url_for, request ,jsonify
 
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
-from models import User
+from models import User , Serie
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
@@ -12,6 +12,8 @@ db = SQLAlchemy()
 sess = Session()    
 
 auth = Blueprint('auth', __name__)  # Blueprint = groupe de routes
+
+api = Blueprint("api", __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -58,3 +60,19 @@ def register():
         return redirect(url_for('login'))  # Rediriger vers une page de succès ou de connexion
 
     return render_template('register.html')
+
+
+
+
+
+@api.route("/api/AjouterSerie", methods=["POST"])
+def ADDSerie():
+    data = request.get_json()
+    print(data['id'])
+    serie = Serie(idtvmaze=data['id'],name = 'test')
+    db.session.add(serie)
+    db.session.commit()
+
+    
+    # Ici tu pourras ajouter la logique pour enregistrer en BDD
+    return jsonify({"status": "success", "received": data}), 200

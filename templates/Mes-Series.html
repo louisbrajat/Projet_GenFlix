@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block head_includes %}
+
+{% endblock %}
+{% block content %}
+<script src="{{ url_for('static', filename='js/mesSeries.js') }}" defer></script>
+
+<form class="ChercherSeries" id=ChercherForm>
+    <div class="cher">
+        <label for="Chercher" class="Chercher">Rechercher</label>
+        <input type="text" id="Chercher" name="Chercher"/>
+    </div>
+    <div class="recher">
+            <input type="submit" id='recher' value="Rechercher"></input>
+    </div>
+</form>
+
+<div id="Resulat-Series" class="ConteneurSerie">
+
+</div>
+{% endblock %}

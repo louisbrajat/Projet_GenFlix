@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
 from models import User
-from routes import auth
+from routes import auth,api
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
@@ -23,6 +23,7 @@ app.config["SESSION_TYPE"] = "sqlalchemy"
 app.config["SESSION_SQLALCHEMY"] = db
 
 app.register_blueprint(auth)
+app.register_blueprint(api)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -31,6 +32,11 @@ def home():
 @app.route('/test-home', methods=['GET'])
 def test_home():
     return render_template("home.html")
+
+
+@app.route('/Mes-Series', methods=['GET'])
+def mes_Series():
+    return render_template("Mes-Series.html")
 
 db.init_app(app)
 sess.init_app(app)

@@ -11,6 +11,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: green;
 }
 
 header{
@@ -49,6 +50,58 @@ button{
     color: white;
     padding: 1vh;
     font-size: 1.5vh;
+    cursor: pointer;
+}
+
+
+.ConteneurSerie{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 95%;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    
+}
+
+.film{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ff4da6;   
+    border: 2px solid #2ecc71; 
+}
+
+.titreFilm{
+    color: greenyellow;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 12px 10px 8px 10px;
+    text-align: center;
+}
+
+.affiche {
+    width: 100%; /* Prend toute la largeur de la carte */
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover; /* Évite de déformer l'image */
+    
+    
+}
+
+.butAjout{
+    margin-top: auto; /* Pousse le bouton en bas de la carte si les titres n'ont pas la même longueur */
+    padding: 12px 24px;
+    background-color: #2ecc71; /* Ton vert fétiche */
+    color: #ffffff;
+    border: 2px solid black;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     cursor: pointer;
 }
 
