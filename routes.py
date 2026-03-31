@@ -79,11 +79,13 @@ def logout():
 @api.route("/api/AjouterSerie", methods=["POST"])
 def ADDSerie():
     data = request.get_json()
-    print(data['id'])
-    serie = Serie(idtvmaze=data['id'],name = 'test')
+    idS = int( data['id'])
+    nameS = data['name']
+    print(idS)
+    print(nameS)
+    
+    serie = Serie(idtvmaze=idS,name=nameS )
     db.session.add(serie)
     db.session.commit()
-
-    
     # Ici tu pourras ajouter la logique pour enregistrer en BDD
     return jsonify({"status": "success", "received": data}), 200

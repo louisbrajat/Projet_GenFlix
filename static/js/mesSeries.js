@@ -3,8 +3,11 @@ const SeriesConteneur = document.getElementById("Resulat-Series");
  SeriesConteneur.addEventListener('click', (event) => {
     if (event.target.classList.contains('butAjout')) {
       const idSerie = event.target.dataset.idKey;
-      console.log(idSerie)
-      AddSerie(idSerie)
+      const nameS = event.target.dataset.title;
+      console.log(idSerie,nameS)
+      AddSerie(idSerie,nameS)
+      event.target.style.display = 'none';
+     
     }
 }) 
 
@@ -12,14 +15,16 @@ const SeriesConteneur = document.getElementById("Resulat-Series");
 
 
 
-function AddSerie(idSerie) {
-    const jsonfilm = {'id':idSerie}
+
+
+function AddSerie(idSerie,nameS) {
+    const jsonfilm = {'id':idSerie,'name':nameS}
     fetch(`/api/AjouterSerie`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(jsonfilm)
     }).then(response => response.json()).then(data => {
-            console.log(data)
+            return data
     })
 }
 
@@ -62,8 +67,11 @@ function showShows(show) {
                     <p>${serie.name}</p>
                 </div>
                 <div class="bottomFilm">
-                    <button class="butAjout" id='addSerie' data-id-key='${serie.id}'>Ajouter la Serie </button>
+                    <button class="butAjout" id='addSerie' data-title='${serie.name}' data-id-key='${serie.id}'>Ajouter la Serie </button>
                 </div>
+                <button class="butSupprimer" data-id-key='${serie.id}' style="display: none;>
+                Enlever la Serie
+                </button>
             </div> `
         conteneur.innerHTML += template;
     })
