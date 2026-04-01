@@ -1,13 +1,15 @@
 from flask import Flask, render_template, session, redirect, url_for, request, jsonify
-from google import genai
+#from google import genai
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 import os
 from models import User
-from routes import auth,api
+from routes import auth,api, login_required, auth_required
 
 from flask_session import Session
 from models import db
+
+import os
 
 os.environ["GEMINI_API_KEY"] = "AIzaSyCWfUAniqSpOkXlqrI4AUDA5uFeX_9HbT0"
 
@@ -27,8 +29,7 @@ app.register_blueprint(api)
 
 @app.route('/', methods=['GET'])
 def home():
-    pseudo = session.get('pseudo')
-    return render_template('home.html', pseudo=pseudo)
+    return render_template('home.html')
 
 
 @app.route('/test-home', methods=['GET'])
@@ -37,17 +38,23 @@ def test_home():
 
 
 @app.route('/Mes-Series', methods=['GET'])
+@login_required
 def mes_Series():
     pseudo = session.get('pseudo')
     print(pseudo)
     return render_template("Mes-Series.html",user=User.get_by_username(pseudo))
 
+
+
+
 @app.route('/test-recommendations', methods=['GET'])
+@login_required
 def test_recommendations():
     pseudo = session.get('pseudo')
     return render_template("recommendations.html", user=User.get_by_username(pseudo))
 
 @app.route('/api/recommendations/gemini', methods=['POST'])
+@auth_required
 def gemini_recommendations():
     data = request.get_json()
     last_series = data.get("last_series", [])
