@@ -3,7 +3,7 @@ from flask import Blueprint, Flask, render_template, session, redirect,url_for, 
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
-from models import User , Serie , db, Like
+from models import User , Serie , db
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session

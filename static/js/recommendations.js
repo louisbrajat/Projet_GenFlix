@@ -4,12 +4,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultBox = document.getElementById("gemini-result");
     const resultText = document.getElementById("gemini-text");
     const promptInput = document.getElementById("prompt-input");
+    const seriesCards = document.querySelectorAll(".serie-item");
 
     button.addEventListener("click", async () => {
         const prompt = promptInput.value.trim();
 
+        const lastSeries = Array.from(seriesCards)
+            .map(card => card.dataset.title)
+            .filter(Boolean);
+
         if (!prompt) {
             alert("Veuillez écrire un prompt.");
+            return;
+        }
+
+        if (lastSeries.length === 0) {
+            alert("Aucune série disponible pour générer des recommandations.");
             return;
         }
 
@@ -23,7 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ prompt: prompt })
+                body: JSON.stringify({
+                    prompt: prompt,
+                    last_series: lastSeries
+                })
             });
 
             const data = await response.json();
