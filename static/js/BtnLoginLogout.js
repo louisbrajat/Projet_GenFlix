@@ -1,20 +1,17 @@
-
 document.addEventListener('DOMContentLoaded', function () {
 
   const btnConnexion = document.getElementById('btnConnexion');
-
-  btnConnexion.addEventListener('click', function () {
-    window.location.href = '/login';
-  });
-
-});
-
-document.addEventListener('DOMContentLoaded', function () {
+  if (btnConnexion) {
+    btnConnexion.addEventListener('click', function () {
+      window.location.href = '/login';
+    });
+  }
 
   const btnDeconnexion = document.getElementById('btnDeconnexion');
-
-  btnDeconnexion.addEventListener('click', function () {
-    window.location.href = '/logout';
-  });
+  if (btnDeconnexion) {
+    btnDeconnexion.addEventListener('click', function () {
+      window.location.href = '/logout';
+    });
+  }
 
 });
