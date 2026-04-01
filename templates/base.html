@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </head>
 <body>
     <header>
@@ -17,7 +16,7 @@
         <!-- faire le systeme de qui on voit grace a la session -->
         <div class="droite">
             {% if session['pseudo'] %}
-                <p>Bienvenue {{ session.pseudo }} !</p>
+                <p>{{ session.pseudo }}</p>
                 <button id="btnDeconnexion" class="login">Se déconnecter </button>
             {% else %}
                 <button id="btnConnexion" class="login">Se connecter</button>

@@ -9,6 +9,8 @@ from routes import auth,api, login_required, auth_required
 from flask_session import Session
 from models import db
 
+import os
+
 os.environ["GEMINI_API_KEY"] = "AIzaSyCWfUAniqSpOkXlqrI4AUDA5uFeX_9HbT0"
 
 app = Flask(__name__)
@@ -38,13 +40,18 @@ def test_home():
 @app.route('/Mes-Series', methods=['GET'])
 @login_required
 def mes_Series():
-    user = g.user  # déjà récupéré par le décorateur
-    return render_template('Mes-Series.html', user=user)
+    pseudo = session.get('pseudo')
+    print(pseudo)
+    return render_template("Mes-Series.html",user=User.get_by_username(pseudo))
+
+
+
 
 @app.route('/test-recommendations', methods=['GET'])
 @login_required
 def test_recommendations():
-    return render_template("recommendations.html")
+    pseudo = session.get('pseudo')
+    return render_template("recommendations.html", user=User.get_by_username(pseudo))
 
 @app.route('/api/recommendations/gemini', methods=['POST'])
 @auth_required

@@ -1,59 +1,69 @@
 {% extends "base.html" %}
-
 {% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/mesSeries.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/recommendations.css') }}">
+<script src="{{ url_for('static', filename='js/recommendations.js') }}" defer></script>
 
-<div class="reco-container">
-    <h2>Vos dernières séries</h2>
-    <p class="subtitle">Suggestions basées sur votre historique</p>
+<div class="reco-wrapper">
 
-    <div class="row">
-        <div class="card"><img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf" alt="Breaking Bad"><p>Breaking Bad</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1517602302552-471fe67acf66" alt="Dark"><p>Dark</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba" alt="Lupin"><p>Lupin</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1505685296765-3a2736de412f" alt="Stranger Things"><p>Stranger Things</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1497032205916-ac775f0649ae" alt="You"><p>You</p></div>
+    <div class="MesSeries" id="MesSeries">
+        <h3>Mes dernières séries</h3>
+        <div class="listeSerie" id="last-series-list">
+            {% for s in user.serie %}
+            <div class="film serie-item" data-title="{{ s.name }}">
+                <div class="contenant">
+                    <div class="affiche">
+                        <img class="img_film" src="{{ s.img }}">
+                    </div>
+                    <div class="titreFilm">
+                        <p>{{ s.name }}</p>
+                    </div>
+                    <div class="bottomFilm">
+                        <button class="butAjout" type="button">Déjà ajoutée</button>
+                    </div>
+                </div>
+                <div class="notation">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 
-    <div class="row">
-        <div class="card"><img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4" alt="Elite"><p>Elite</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" alt="Narcos"><p>Narcos</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" alt="Peaky Blinders"><p>Peaky Blinders</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470" alt="Vikings"><p>Vikings</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7" alt="The Witcher"><p>The Witcher</p></div>
-    </div>
+    <div class="reco-panel">
+        <h3>Recommandations Gemini</h3>
+        <p class="subtitle">
+            Génère des suggestions à partir de tes séries déjà enregistrées.
+        </p>
 
-    <section class="prompt-box">
-        <label for="prompt-input">Personnalisez votre demande à Gemini</label>
-        <textarea id="prompt-input" rows="8">Tu es un assistant de recommandation de séries pour GenFlix.
-À partir de cette liste de 10 dernières séries regardées :
-Breaking Bad, Dark, Lupin, Stranger Things, You, Elite, Narcos, Peaky Blinders, Vikings, The Witcher
-
-Propose 5 séries à regarder ensuite.
+        <label for="prompt-input" class="prompt-label">Prompt Gemini</label>
+        <textarea id="prompt-input" rows="7">
+Je veux des recommandations cohérentes avec mes séries préférées.
 Réponds en français.
+Propose 5 séries maximum.
 Pour chaque suggestion, donne :
 - le nom de la série
-- une courte explication
-- le genre principal</textarea>
-    </section>
+- le genre principal
+- une explication courte et claire.
+        </textarea>
 
-    <div class="actions">
-        <button id="gemini-btn">Générer mes suggestions</button>
+        <div class="actions">
+            <button id="gemini-btn" type="button">Générer mes suggestions</button>
+        </div>
+
+        <div id="loading" class="loading hidden">Génération en cours...</div>
+
+        <div id="gemini-result" class="gemini-result hidden">
+            <h3>Suggestions Gemini</h3>
+            <div id="gemini-text"></div>
+        </div>
     </div>
 
-    <div id="loading" class="loading hidden">Génération en cours...</div>
-
-    <div id="gemini-result" class="gemini-result hidden">
-        <h3>Suggestions Gemini</h3>
-        <div id="gemini-text"></div>
-    </div>
 </div>
 
-<footer class="footer">
-    <p class="footer-logo">GenFlix</p>
-    <p class="footer-text">Votre plateforme de séries</p>
-    <p class="footer-copy">© 2026</p>
-</footer>
-
-<script src="{{ url_for('static', filename='js/recommendations.js') }}" defer></script>
 {% endblock %}
