@@ -6,7 +6,7 @@
   --card-bg: #1a1a1a;
   --text:    #ffffff;
   --muted:   #888888;
-  --accent:  #f2b6c1;
+  --accent:  #9D7179;
   --border:  #333333;
   --btn:     #9D7179;
   --btn-border: #733F49;
@@ -27,7 +27,7 @@
 ============================================= */
 body {
   background: #082101;
-  background: linear-gradient(0deg, #082101 85%, #e08d9d 100%);
+  background: linear-gradient(0deg, #000000 85%, #2ecc71 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,7 +93,7 @@ body {
 .logo__dot {
   width: 10px; height: 10px;
   border-radius: 50%;
-  background: var(--accent);
+  background: #2ecc71;
   display: inline-block;
 }
 
@@ -194,7 +194,7 @@ body {
   text-decoration: none;
   transition: color 0.2s;
 }
-.form__link:hover { color: #733F49; }
+.form__link:hover { color: #2ecc71; } /* couleur verte #2ecc71  couleur rose magenta #733F49*/
 
 /* =============================================
    FOOTER DE LA CARTE

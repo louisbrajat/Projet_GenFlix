@@ -19,12 +19,12 @@ def login_required(f):
     """
     def wrapper(*args, **kwargs):
         if "user" not in session:
-            return {"error": "non autorisé"}, 401
+            return render_template("login.html")
 
         user = User.get_by_username(session["user"])
         if user is None:
             session.clear()
-            return {"error": "non autorisé"}, 401
+            return render_template("login.html")
 
         g.user = user
         return f(*args, **kwargs)

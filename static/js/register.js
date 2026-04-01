@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const result = await response.json();
 
       if (result.success) {
-        window.location.href = '/Mes-Series'; // redirige vers la page d'accueil après inscription réussie
+        window.location.href = '/login'; // redirige vers la page de connexion
       } else {
         alert(result.message);           // affiche le message d'erreur
       }
