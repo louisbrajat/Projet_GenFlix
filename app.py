@@ -44,12 +44,10 @@ def mes_Series():
     print(pseudo)
     return render_template("Mes-Series.html",user=User.get_by_username(pseudo))
 
-
-
-
 @app.route('/test-recommendations', methods=['GET'])
 def test_recommendations():
-    return render_template("recommendations.html")
+    pseudo = session.get('pseudo')
+    return render_template("recommendations.html", user=User.get_by_username(pseudo))
 
 @app.route('/api/recommendations/gemini', methods=['POST'])
 def gemini_recommendations():
