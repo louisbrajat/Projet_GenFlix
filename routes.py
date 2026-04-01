@@ -4,12 +4,9 @@ from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
 from models import User , Serie , db
-<<<<<<< HEAD
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
-=======
->>>>>>> 170a2d1e0ed1abde524cdf7854b13992d1201307
 
 
 auth = Blueprint('auth', __name__)  # Blueprint = groupe de routes
