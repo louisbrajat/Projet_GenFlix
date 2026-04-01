@@ -7,7 +7,7 @@ const SeriesConteneur = document.getElementById("Resulat-Series");
       const imgS = event.target.dataset.img;
       console.log(idSerie,nameS,imgS)
       AddSerie(idSerie,nameS,imgS)
-      event.target.style.display = 'none';
+      event.target.closest('.film').style.display = 'none';
      
     }
 }) 
@@ -38,13 +38,17 @@ for (const btn of document.querySelectorAll('.butSupprimer')) {
                 throw new Error('Erreur lors de la suppression');
     }).then(data => {
                 console.log("Réponse du serveur:", data);
-                // Si le serveur confirme le succès, on retire la carte du HTML
                 if (film) {
                     film.remove(); 
                 }
             }).catch(error => console.error("Error", error));
 })
 }
+
+const form2 = document.querySelector('#retour')    
+form2.addEventListener('submit', function (event) {
+    window.location.href ="/Mes-Series";
+})
 
 const form = document.querySelector('#ChercherForm')    
 form.addEventListener('submit', function (event) {
@@ -65,19 +69,17 @@ function RechercherSeries(text) {
                 let listSerie = []
                 data.forEach(d => {
                     if (serieBDID.includes(d.show.id)) {
-                        console.log("On ignore le doublon :", d.show.name);
+
                     } else {
                         listSerie.push(d);
                     }
                 });
                 console.log(listSerie)
                 showShows(listSerie,text)
+                document.getElementById('MS').style.display = 'block';
             })
             console.log("Mes séries en DB :", mesSeries);
-        })
-
-
-    
+        })    
 }
 
 function showShows(show,text) {

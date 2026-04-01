@@ -9,6 +9,8 @@ from routes import auth,api
 from flask_session import Session
 from models import db
 
+import os
+
 os.environ["GEMINI_API_KEY"] = "AIzaSyCWfUAniqSpOkXlqrI4AUDA5uFeX_9HbT0"
 
 app = Flask(__name__)

@@ -76,11 +76,12 @@ def logout():
 @api.route("/api/AjouterSerie", methods=["POST"])
 def ADDSerie():
     data = request.get_json()
-    print(data['id'])
-    serie = Serie(idtvmaze=data['id'],name = 'test')
+    idS = int( data['id'])
+    nameS = data['name']
+    imgurl = data['img']
+    serie = Serie(idtvmaze=idS,name=nameS,img=imgurl,user_id=session['user_id'] )
     db.session.add(serie)
     db.session.commit()
-    # Ici tu pourras ajouter la logique pour enregistrer en BDD
     return jsonify({"status": "success", "received": data}), 200
 
 
@@ -109,3 +110,4 @@ def GetAllUser():
     for s in Liste_Serie:
         liste_finale.append(s.to_dict())
     return jsonify(liste_finale)
+
