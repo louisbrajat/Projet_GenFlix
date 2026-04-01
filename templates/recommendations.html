@@ -10,47 +10,94 @@
     <div class="MesSeries" id="MesSeries">
         <h3>Mes dernières séries</h3>
         <div class="listeSerie" id="last-series-list">
-            {% for s in user.serie %}
-            <div class="film serie-item" data-title="{{ s.name }}">
-                <div class="contenant">
-                    <div class="affiche">
-                        <img class="img_film" src="{{ s.img }}">
+            {% if user and user.serie %}
+                {% for s in user.serie %}
+                <div class="film serie-item" data-title="{{ s.name }}">
+                    <div class="contenant">
+                        <div class="affiche">
+                            <img class="img_film" src="{{ s.img }}" alt="{{ s.name }}">
+                        </div>
+                        <div class="titreFilm">
+                            <p>{{ s.name }}</p>
+                        </div>
+                        <div class="bottomFilm">
+                            <button class="butAjout deja-ajoutee" type="button">Déjà ajoutée</button>
+                        </div>
                     </div>
-                    <div class="titreFilm">
-                        <p>{{ s.name }}</p>
-                    </div>
-                    <div class="bottomFilm">
-                        <button class="butAjout" type="button">Déjà ajoutée</button>
+                    <div class="notation">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
                     </div>
                 </div>
-                <div class="notation">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
-            </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <p class="empty-series">Aucune série ajoutée pour le moment.</p>
+            {% endif %}
         </div>
     </div>
 
     <div class="reco-panel">
-        <h3>Recommandations Gemini</h3>
-        <p class="subtitle">
-            Génère des suggestions à partir de tes séries déjà enregistrées.
-        </p>
+        <div class="reco-header">
+            <h3>Recommandations Gemini</h3>
+            <p class="subtitle">
+                Choisis plusieurs genres, une ambiance et laisse Gemini construire une recommandation personnalisée.
+            </p>
+        </div>
 
-        <label for="prompt-input" class="prompt-label">Prompt Gemini</label>
-        <textarea id="prompt-input" rows="7">
-Je veux des recommandations cohérentes avec mes séries préférées.
-Réponds en français.
-Propose 5 séries maximum.
-Pour chaque suggestion, donne :
-- le nom de la série
-- le genre principal
-- une explication courte et claire.
-        </textarea>
+        <div class="filter-group">
+            <p class="filter-title">Genres</p>
+            <div class="chip-group" id="genre-group">
+                <button type="button" class="chip genre-chip" data-value="thriller">Thriller</button>
+                <button type="button" class="chip genre-chip" data-value="drame">Drame</button>
+                <button type="button" class="chip genre-chip" data-value="action">Action</button>
+                <button type="button" class="chip genre-chip" data-value="science-fiction">Science-fiction</button>
+                <button type="button" class="chip genre-chip" data-value="fantasy">Fantasy</button>
+                <button type="button" class="chip genre-chip" data-value="romance">Romance</button>
+                <button type="button" class="chip genre-chip" data-value="comédie">Comédie</button>
+                <button type="button" class="chip genre-chip" data-value="historique">Historique</button>
+                <button type="button" class="chip genre-chip" data-value="psychologique">Psychologique</button>
+                <button type="button" class="chip genre-chip" data-value="mystère">Mystère</button>
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <p class="filter-title">Ambiance</p>
+            <div class="chip-group" id="mood-group">
+                <button type="button" class="chip mood-chip" data-value="sombre">Sombre</button>
+                <button type="button" class="chip mood-chip" data-value="intense">Intense</button>
+                <button type="button" class="chip mood-chip" data-value="léger">Léger</button>
+                <button type="button" class="chip mood-chip" data-value="émouvant">Émouvant</button>
+                <button type="button" class="chip mood-chip" data-value="addictif">Addictif</button>
+                <button type="button" class="chip mood-chip" data-value="élégant">Élégant</button>
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <p class="filter-title">Style recherché</p>
+            <div class="chip-group" id="style-group">
+                <button type="button" class="chip style-chip" data-value="plot twists">Plot twists</button>
+                <button type="button" class="chip style-chip" data-value="personnages forts">Personnages forts</button>
+                <button type="button" class="chip style-chip" data-value="rythme rapide">Rythme rapide</button>
+                <button type="button" class="chip style-chip" data-value="univers immersif">Univers immersif</button>
+                <button type="button" class="chip style-chip" data-value="peu de romance">Peu de romance</button>
+                <button type="button" class="chip style-chip" data-value="très populaire">Très populaire</button>
+                <button type="button" class="chip style-chip" data-value="moins connue">Moins connue</button>
+            </div>
+        </div>
+
+        <label for="custom-note" class="prompt-label">Détail perso à ajouter</label>
+        <textarea id="custom-note" rows="4" placeholder="Exemple : je veux éviter les séries trop lentes, je veux quelque chose de marquant, adulte, avec une vraie tension."></textarea>
+
+        <div class="prompt-preview-box">
+            <div class="prompt-preview-header">
+                <p class="filter-title">Prompt généré automatiquement</p>
+                <button type="button" id="refresh-prompt-btn" class="mini-btn">Mettre à jour le prompt</button>
+            </div>
+            <textarea id="prompt-input" rows="9"></textarea>
+        </div>
 
         <div class="actions">
             <button id="gemini-btn" type="button">Générer mes suggestions</button>
@@ -66,4 +113,5 @@ Pour chaque suggestion, donne :
 
 </div>
 
+<script src="{{ url_for('static', filename='js/BtnLoginLogout.js') }}" defer></script>
 {% endblock %}
