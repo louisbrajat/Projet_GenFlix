@@ -1,0 +1,110 @@
+body {
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+/* Conteneur 3D */
+.card-wrapper {
+  width: 180px;
+  height: 80px;
+  perspective: 600px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Faces */
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.face-front {
+  background-color: #0066cc;
+}
+
+.face-back {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  transform: rotateY(180deg);
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  justify-content: space-between;
+}
+
+/* Bouton face avant */
+.btn {
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.btn:hover { background-color: rgba(0,0,0,0.1); }
+
+/* Étoiles */
+.stars { display: flex; gap: 4px; }
+
+.star {
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.15s ease, transform 0.15s ease;
+  user-select: none;
+}
+.star.hovered  { color: #f5a623; transform: scale(1.2); }
+.star.selected { color: gold; }
+
+.note-label {
+  font-size: 12px;
+  color: #888;
+  height: 16px;
+}
+
+.reset-btn {
+  font-size: 11px;
+  color: #555;
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 2px 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.reset-btn:hover {
+  background-color: #f0f0f0;
+  color: #333;
+  border-color: #aaa;
+}
+
+.status {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #555;
+}
