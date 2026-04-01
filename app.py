@@ -1,10 +1,13 @@
-from flask import Flask, render_template, session, request, jsonify
-from google import genai
-import os
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, render_template, session, redirect, url_for, request, jsonify
+#from google import genai
+from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash
+
+from models import User
+from routes import auth,api
+
 from flask_session import Session
-from models import User, db
-from routes import auth, api
+from models import db
 
 os.environ["GEMINI_API_KEY"] = "AIzaSyCWfUAniqSpOkXlqrI4AUDA5uFeX_9HbT0"
 
@@ -34,7 +37,7 @@ def test_home():
 
 
 @app.route('/Mes-Series', methods=['GET'])
-def mes_series():
+def mes_Series():
     pseudo = session.get('pseudo')
     print(pseudo)
     return render_template("Mes-Series.html",user=User.get_by_username(pseudo))

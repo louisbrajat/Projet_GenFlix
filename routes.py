@@ -4,9 +4,12 @@ from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
 from models import User , Serie , db
+<<<<<<< HEAD
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
+=======
+>>>>>>> 170a2d1e0ed1abde524cdf7854b13992d1201307
 
 
 auth = Blueprint('auth', __name__)  # Blueprint = groupe de routes
@@ -86,27 +89,29 @@ def ADDSerie():
     # Ici tu pourras ajouter la logique pour enregistrer en BDD
     return jsonify({"status": "success", "received": data}), 200
 
-"""
-@api.route('/note/<int:serie_id>', methods=['POST'])
-def note(serie_id):
-    data = request.get_json(force=True, silent=True)
-    note = int(data['note'])
 
-    like_existant = Like.query.filter_by(
-        user_id=session['user_id'],
-        serie_id=serie_id
-    ).first()
 
-    if like_existant:
-        like_existant.note = note  # met à jour si déjà existant
-    else:
-        nouveau = Like(
-            note=note,
-            serie_id=serie_id,
-            user_id=session['user_id']
-        )
-        db.session.add(nouveau)
-
+@api.route("/api/RemoveSerie/<int:key_id>", methods=["DELETE"])
+def Remove(key_id):
+    SerieR = Serie.query.filter_by(user_id=session['user_id'],idtvmaze=key_id).first()
+    db.session.delete(SerieR)
     db.session.commit()
-    return jsonify({'success': True})
-"""
+    if SerieR:
+        db.session.delete(SerieR)
+        db.session.commit()
+        return jsonify({"status": "success", "message": "Série supprimée"}), 200
+    else:
+        return jsonify({"status": "error", "message": "Série non trouvée"}), 404
+    
+
+@api.route("/api/GetSerieUser", methods=["GET"])
+def GetAllUser():
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({"error": "Unauthorized"}), 401
+    
+    Liste_Serie= Serie.get_All_Serie(user_id=user_id)
+    liste_finale = []
+    for s in Liste_Serie:
+        liste_finale.append(s.to_dict())
+    return jsonify(liste_finale)
