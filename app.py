@@ -1,7 +1,6 @@
 from flask import Flask, render_template, session, request, jsonify
 from google import genai
 import os
-
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_session import Session
 from models import User, db
@@ -22,7 +21,6 @@ sess = Session()
 
 app.register_blueprint(auth)
 app.register_blueprint(api)
-
 
 @app.route('/', methods=['GET'])
 def home():
