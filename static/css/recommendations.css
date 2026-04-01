@@ -1,95 +1,147 @@
-.reco-wrapper {
-    width: 100%;
-    padding: 3vh 5vh 5vh 5vh;
+.reco-page {
+    width: 95%;
+    margin: 0 auto;
+    padding-bottom: 5vh;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
 }
 
-.reco-panel {
-    margin-top: 4vh;
-    padding: 2.5vh;
-    border-radius: 1vh;
-    background: rgba(255, 255, 255, 0.03);
-    border: solid 1px rgba(242, 182, 193, 0.2);
+.reco-hero {
+    width: 100%;
+    margin-top: 3vh;
+    padding: 3vh;
+    border: 1px solid rgba(242, 182, 193, 0.25);
+    border-radius: 1.5vh;
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.12), rgba(242, 182, 193, 0.07));
     box-shadow: 0 0 30px rgba(242, 182, 193, 0.05);
 }
 
-.reco-header {
-    margin-bottom: 2vh;
-}
-
-.reco-header h3 {
+.reco-hero-text h2 {
     color: white;
-    font-size: 3vh;
-    margin-bottom: 0.8vh;
+    font-size: 3.5vh;
+    margin-bottom: 1vh;
 }
 
-.subtitle {
-    color: #f2b6c1;
+.reco-hero-text p {
+    color: #f4f4f4;
     font-size: 1.7vh;
-    line-height: 1.5;
+    line-height: 1.8;
+    max-width: 900px;
 }
 
-.quick-prompts {
+.reco-panel,
+.results-panel {
+    width: 100%;
+    padding: 3vh;
+    border-radius: 1.5vh;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(242, 182, 193, 0.18);
+    box-shadow: 0 0 30px rgba(242, 182, 193, 0.04);
+}
+
+.panel-header {
+    margin-bottom: 2.5vh;
+}
+
+.panel-header h3 {
+    font-size: 2.8vh;
+    margin-bottom: 0.7vh;
+}
+
+.panel-subtitle {
+    color: #f2b6c1;
+    font-size: 1.6vh;
+    line-height: 1.7;
+}
+
+.filter-block {
+    margin-bottom: 2.5vh;
+}
+
+.filter-title {
+    color: white;
+    font-weight: 600;
+    font-size: 1.8vh;
+    margin-bottom: 1vh;
+}
+
+.optional-label {
+    color: #f2b6c1;
+    font-size: 1.4vh;
+    font-weight: 500;
+}
+
+.chip-group {
     display: flex;
     flex-wrap: wrap;
     gap: 1vh;
-    margin-bottom: 2vh;
 }
 
-.quick-btn {
+.chip {
     background-color: rgba(157, 113, 121, 0.18);
     border: 0.25vh solid #733F49;
     color: #f7d5dc;
-    border-radius: 2vh;
-    padding: 0.9vh 1.5vh;
-    font-size: 1.4vh;
+    border-radius: 2.5vh;
+    padding: 1vh 1.6vh;
+    font-size: 1.45vh;
     cursor: pointer;
     transition: 0.2s ease;
 }
 
-.quick-btn:hover {
+.chip:hover {
     background-color: #9D7179;
     color: white;
     transform: translateY(-1px);
 }
 
+.chip.active {
+    background-color: #2ecc71;
+    border-color: #2ecc71;
+    color: white;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.25);
+}
+
 .prompt-label {
     display: block;
-    color: #f2b6c1;
+    color: white;
     font-size: 1.7vh;
     margin-bottom: 1vh;
+    font-weight: 600;
 }
 
-#prompt-input {
+#custom-note {
     width: 100%;
-    min-height: 20vh;
-    background-color: #111;
+    background-color: rgba(0, 0, 0, 0.55);
     color: white;
     border: 0.2vh solid #444;
-    border-radius: 0.8vh;
+    border-radius: 1vh;
     padding: 1.5vh;
-    font-size: 1.6vh;
-    line-height: 1.6;
+    font-size: 1.55vh;
+    line-height: 1.7;
     resize: vertical;
     outline: none;
+    min-height: 14vh;
 }
 
-#prompt-input:focus {
+#custom-note:focus {
     border-color: #2ecc71;
     box-shadow: 0 0 0 0.2vh rgba(46, 204, 113, 0.08);
 }
 
 .actions {
-    margin-top: 2vh;
-    margin-bottom: 2vh;
+    margin-top: 2.5vh;
+    display: flex;
+    justify-content: flex-start;
 }
 
 #gemini-btn {
     background-color: #9D7179;
-    border-radius: 0.5vh;
+    border-radius: 0.8vh;
     border: 0.4vh solid #733F49;
     color: white;
-    padding: 1vh 1.6vh;
-    font-size: 1.5vh;
+    padding: 1.2vh 2vh;
+    font-size: 1.6vh;
     cursor: pointer;
     transition: 0.2s ease;
 }
@@ -100,44 +152,124 @@
 }
 
 .loading {
+    margin-top: 2vh;
     color: #f2b6c1;
     font-size: 1.8vh;
-    margin-top: 1vh;
 }
 
-.gemini-result {
+.error-box {
     margin-top: 2vh;
-    background: rgba(46, 204, 113, 0.06);
-    border-left: 0.4vh solid #2ecc71;
-    padding: 2vh;
-    border-radius: 1vh;
-}
-
-.gemini-result h3 {
-    color: #2ecc71;
-    margin-bottom: 1vh;
-    font-size: 2.4vh;
-}
-
-#gemini-text {
+    padding: 1.5vh;
+    border-left: 0.4vh solid #ff5c5c;
+    background: rgba(255, 92, 92, 0.08);
     color: white;
-    line-height: 1.8;
-    white-space: pre-line;
-    font-size: 1.8vh;
+    border-radius: 1vh;
+    font-size: 1.55vh;
+    line-height: 1.6;
+}
+
+.empty-state {
+    color: #d8d8d8;
+    font-size: 1.7vh;
+    line-height: 1.7;
+    padding: 2vh 0;
+}
+
+.recommendation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2vh;
+    margin-top: 2vh;
+}
+
+.recommendation-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(242, 182, 193, 0.18);
+    border-radius: 1.4vh;
+    padding: 2vh;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3vh;
+    transition: 0.2s ease;
+}
+
+.recommendation-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.recommendation-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1vh;
+}
+
+.recommendation-title {
+    color: white;
+    font-size: 2vh;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.match-badge {
+    background-color: rgba(46, 204, 113, 0.16);
+    color: #8ef0b4;
+    border: 1px solid rgba(46, 204, 113, 0.35);
+    border-radius: 2vh;
+    padding: 0.5vh 1vh;
+    font-size: 1.25vh;
+    white-space: nowrap;
+}
+
+.meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8vh;
+}
+
+.meta-pill {
+    background-color: rgba(242, 182, 193, 0.12);
+    color: #f7d5dc;
+    border: 1px solid rgba(242, 182, 193, 0.18);
+    border-radius: 2vh;
+    padding: 0.5vh 1vh;
+    font-size: 1.2vh;
+}
+
+.recommendation-section h4 {
+    color: #2ecc71;
+    font-size: 1.45vh;
+    margin-bottom: 0.5vh;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.recommendation-section p {
+    color: white;
+    font-size: 1.45vh;
+    line-height: 1.7;
 }
 
 .hidden {
     display: none;
 }
 
-.deja-ajoutee {
-    cursor: default;
-}
+@media (max-width: 768px) {
+    .reco-page {
+        width: 92%;
+    }
 
-.empty-series {
-    color: white;
-    font-size: 1.8vh;
-    margin-top: 1vh;
-}
+    .reco-hero-text h2 {
+        font-size: 3vh;
+    }
 
-p{color: white;}
+    .panel-header h3 {
+        font-size: 2.4vh;
+    }
+
+    .recommendation-grid {
+        grid-template-columns: 1fr;
+    }
+}

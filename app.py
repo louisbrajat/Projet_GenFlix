@@ -1,13 +1,14 @@
 import json
+import os
 
 from flask import Flask, render_template, session, redirect, url_for, request, jsonify, g
 from google import genai
 from google.genai import types
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
-import os
+
 from models import User
-from routes import auth,api, login_required
+from routes import auth, api, login_required
 
 from flask_session import Session
 from models import db
@@ -28,6 +29,7 @@ sess = Session()
 app.register_blueprint(auth)
 app.register_blueprint(api)
 
+
 @app.route('/', methods=['GET'])
 def home():
     return render_template('home.html')
@@ -44,13 +46,24 @@ def mes_Series():
     return render_template("Mes-Series.html", user=g.user)
 
 
+@app.route('/recommendations', methods=['GET'])
+@login_required
+def recommendations_page():
+    return render_template("recommendations.html", user=g.user)
+
+
 @app.route('/test-recommendations', methods=['GET'])
 @login_required
 def test_recommendations():
-    pseudo = session.get('pseudo')
+    pseudo = session.get('user')
     reco = gemini_recommendations()
     print(reco)
-    return render_template("recommendations.html", user=User.get_by_username(pseudo),recommendations=reco)
+    return render_template(
+        "recommendations.html",
+        user=User.get_by_username(pseudo),
+        recommendations=reco
+    )
+
 
 def gemini_recommendations():
     series_list = g.user.serie
@@ -62,7 +75,6 @@ def gemini_recommendations():
         ligne = f"{s.name}: {s.note}/5"
         formatted_list.append(ligne)
 
-    # 1. SCHEMA : On utilise des noms de clés simples et sans espaces
     response_schema = types.Schema(
         type=types.Type.ARRAY,
         items=types.Schema(
@@ -79,8 +91,7 @@ def gemini_recommendations():
     try:
         client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
         series_list_str = "\n".join(formatted_list)
-        
-        # 2. PROMPT : On insiste sur le MAXIMUM de 100 mots
+
         full_prompt = f"""
 Tu es une IA experte en analyse cinématographique. Génère 10 recommandations basées sur ces données :
 {series_list_str}
@@ -89,7 +100,7 @@ Tu es une IA experte en analyse cinématographique. Génère 10 recommandations 
 Analyse les succès (4-5/5) pour trouver des points communs techniques et évite les thématiques des échecs (0-2/5).
 
 ### CONTRAINTES DE RÉDACTION :
-- "explication" : MAXIMUM 50 mots. Analyse pourquoi cette série plaira techniquement (rythme, réal).
+- "explication" : MAXIMUM 50 mots. Analyse pourquoi cette série plaira techniquement.
 - "resume" : MAXIMUM 50 mots. Pitch percutant pour donner envie.
 
 ### FORMAT JSON :
@@ -97,7 +108,7 @@ Utilise exactement ces clés : "nom_de_serie", "explication", "resume".
 """
 
         response = client.models.generate_content(
-            model="gemini-2.5-flash", 
+            model="gemini-2.5-flash",
             contents=full_prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
@@ -111,7 +122,6 @@ Utilise exactement ces clés : "nom_de_serie", "explication", "resume".
     except Exception as e:
         print(f"ERREUR GEMINI : {e}")
         return []
-    
 
 
 db.init_app(app)
