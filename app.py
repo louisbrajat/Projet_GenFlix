@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 import os
 from models import User
-from routes import auth,api, login_required, auth_required
+from routes import auth,api, login_required
 
 from flask_session import Session
 from models import db
@@ -40,11 +40,7 @@ def test_home():
 @app.route('/Mes-Series', methods=['GET'])
 @login_required
 def mes_Series():
-    pseudo = session.get('pseudo')
-    print(pseudo)
-    return render_template("Mes-Series.html",user=User.get_by_username(pseudo))
-
-
+    return render_template("Mes-Series.html", user=g.user)
 
 
 @app.route('/test-recommendations', methods=['GET'])
@@ -54,7 +50,7 @@ def test_recommendations():
     return render_template("recommendations.html", user=User.get_by_username(pseudo))
 
 @app.route('/api/recommendations/gemini', methods=['POST'])
-@auth_required
+
 def gemini_recommendations():
     data = request.get_json()
     last_series = data.get("last_series", [])

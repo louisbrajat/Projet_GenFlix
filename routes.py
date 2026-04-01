@@ -32,36 +32,6 @@ def login_required(f):
     return wrapper
 
 
-def auth_required(f):
-    """
-        session ou clé API
-        
-        grace à la variable g.user, on peut accéder à l'utilisateur connecté 
-        dans les fonctions de route protégées par ce décorateur
-    """
-
-    def wrapper(*args, **kwargs):
-        user = None
-
-        if "user" in session:
-            user = User.get_by_username(session["user"])
-
-        if user is None:
-            api_key_header = request.headers.get("X-API-Key")
-            if api_key_header is not None:
-                api_key = ApiKey.get_by_key(api_key_header)
-                if api_key is not None:
-                    user = api_key.user
-
-        if user is None:
-            return {"error": "non autorisé"}, 401
-
-        g.user = user
-        return f(*args, **kwargs)
-    wrapper.__name__ = f.__name__
-    return wrapper
-
-
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -90,7 +60,6 @@ def login():
 def register():
     if request.method == 'POST':
         data     = request.get_json(force=True, silent=True)
-        print("DATA REÇUE :", data)  # ← ajoute ça
         pseudo   = data['pseudo']
         email    = data['email']
         password = data['password']
@@ -114,6 +83,10 @@ def register():
         db.session.add(nouvel_utilisateur)
         db.session.commit()
 
+        # ← connecte directement l'utilisateur après inscription
+        session['user']    = pseudo
+        session['user_id'] = nouvel_utilisateur.id
+        
         return jsonify({'success': True})
 
     return render_template('register.html')
@@ -126,7 +99,6 @@ def logout():
 
 
 @api.route("/api/AjouterSerie", methods=["POST"])
-@auth_required
 def ADDSerie():
     data = request.get_json()
     idS = int( data['id'])
@@ -140,7 +112,7 @@ def ADDSerie():
 
 
 @api.route("/api/RemoveSerie/<int:key_id>", methods=["DELETE"])
-@auth_required
+
 def Remove(key_id):
     SerieR = Serie.query.filter_by(user_id=session['user_id'],idtvmaze=key_id).first()
     db.session.delete(SerieR)
@@ -154,7 +126,7 @@ def Remove(key_id):
     
 
 @api.route("/api/GetSerieUser", methods=["GET"])
-@auth_required
+
 def GetAllUser():
     user_id = session.get('user_id')
     if not user_id:
