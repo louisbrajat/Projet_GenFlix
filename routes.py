@@ -81,10 +81,12 @@ def ADDSerie():
     data = request.get_json()
     idS = int( data['id'])
     nameS = data['name']
+    imgurl = data['img']
     print(idS)
     print(nameS)
-    
-    serie = Serie(idtvmaze=idS,name=nameS )
+    print(imgurl)
+    print(session['user_id'])
+    serie = Serie(idtvmaze=idS,name=nameS,img=imgurl,user_id=session['user_id'] )
     db.session.add(serie)
     db.session.commit()
     # Ici tu pourras ajouter la logique pour enregistrer en BDD

@@ -4,21 +4,17 @@ const SeriesConteneur = document.getElementById("Resulat-Series");
     if (event.target.classList.contains('butAjout')) {
       const idSerie = event.target.dataset.idKey;
       const nameS = event.target.dataset.title;
-      console.log(idSerie,nameS)
-      AddSerie(idSerie,nameS)
+      const imgS = event.target.dataset.img;
+      console.log(idSerie,nameS,imgS)
+      AddSerie(idSerie,nameS,imgS)
       event.target.style.display = 'none';
      
     }
 }) 
 
 
-
-
-
-
-
-function AddSerie(idSerie,nameS) {
-    const jsonfilm = {'id':idSerie,'name':nameS}
+function AddSerie(idSerie,nameS,imgS) {
+    const jsonfilm = {'id':idSerie,'name':nameS,'img':imgS}
     fetch(`/api/AjouterSerie`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -43,13 +39,19 @@ function RechercherSeries(text) {
     fetch(`https://api.tvmaze.com/search/shows?q=${text}`)
     .then(response => response.json())
     .then(data => {
-        showShows(data)
+        showShows(data,text)
     })
 }
 
-function showShows(show) {
+function showShows(show,text) {
+    const MesSeries = document.getElementById("MesSeries");
+    MesSeries.style.display="none"
     const conteneur = document.getElementById("Resulat-Series");
-    conteneur.innerHTML = "";
+    conteneur.innerHTML = `<h3>Résultats de recherche : ${text} </h3>
+                           <div class="listeSerie" id="listeResultats"></div>`;
+    
+    const conteneur2 = document.getElementById("listeResultats");
+    let template = ""
     show.forEach(s => {
         serie = s['show']
         if (serie.image && serie.image.medium) {
@@ -57,23 +59,21 @@ function showShows(show) {
         }else{
              img = "https://www.pngegg.com/fr/png-bmmcf"
         }
-        titre = serie.name
-        const template = `
-            <div class="film">
-                <div class="affiche">   
-                    <img class="img_film" src=" ${img}">
+        template += `
+           <div class="film">
+                <div class="contenant">
+                    <div class="affiche">   
+                        <img class="img_film" src="${img}">
+                    </div>
+                    <div class="titreFilm">
+                        <p>${serie.name}</p>
+                    </div>
+                    <div class="bottomFilm">
+                        <button class="butAjout" data-img="${img}" data-title="${serie.name}" data-id-key="${serie.id}">Ajouter</button>
+                    </div>
                 </div>
-                <div class="titreFilm">
-                    <p>${serie.name}</p>
-                </div>
-                <div class="bottomFilm">
-                    <button class="butAjout" id='addSerie' data-title='${serie.name}' data-id-key='${serie.id}'>Ajouter la Serie </button>
-                </div>
-                <button class="butSupprimer" data-id-key='${serie.id}' style="display: none;>
-                Enlever la Serie
-                </button>
-            </div> `
-        conteneur.innerHTML += template;
+            </div>`;
+        conteneur2.innerHTML = template;
     })
 }
 
