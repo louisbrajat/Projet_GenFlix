@@ -8,20 +8,34 @@
     <p class="subtitle">Suggestions basées sur votre historique</p>
 
     <div class="row">
-        <div class="card"><img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf"><p>Breaking Bad</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1517602302552-471fe67acf66"><p>Dark</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba"><p>Lupin</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1505685296765-3a2736de412f"><p>Stranger Things</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1497032205916-ac775f0649ae"><p>You</p></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf" alt="Breaking Bad"><p>Breaking Bad</p></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1517602302552-471fe67acf66" alt="Dark"><p>Dark</p></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba" alt="Lupin"><p>Lupin</p></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1505685296765-3a2736de412f" alt="Stranger Things"><p>Stranger Things</p></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1497032205916-ac775f0649ae" alt="You"><p>You</p></div>
     </div>
 
     <div class="row">
-        <div class="card"><img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4"><p>Elite</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"><p>Narcos</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"><p>Peaky Blinders</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470"><p>Vikings</p></div>
-        <div class="card"><img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7"><p>The Witcher</p></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4" alt="Elite"><p>Elite</p></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" alt="Narcos"><p>Narcos</p></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" alt="Peaky Blinders"><p>Peaky Blinders</p></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470" alt="Vikings"><p>Vikings</p></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7" alt="The Witcher"><p>The Witcher</p></div>
     </div>
+
+    <section class="prompt-box">
+        <label for="prompt-input">Personnalisez votre demande à Gemini</label>
+        <textarea id="prompt-input" rows="8">Tu es un assistant de recommandation de séries pour GenFlix.
+À partir de cette liste de 10 dernières séries regardées :
+Breaking Bad, Dark, Lupin, Stranger Things, You, Elite, Narcos, Peaky Blinders, Vikings, The Witcher
+
+Propose 5 séries à regarder ensuite.
+Réponds en français.
+Pour chaque suggestion, donne :
+- le nom de la série
+- une courte explication
+- le genre principal</textarea>
+    </section>
 
     <div class="actions">
         <button id="gemini-btn">Générer mes suggestions</button>
