@@ -5,9 +5,6 @@ from werkzeug.security import check_password_hash
 
 from models import User , Serie , db
 
-from flask_sqlalchemy import SQLAlchemy
-from flask_session import Session
-
 
 auth = Blueprint('auth', __name__)  # Blueprint = groupe de routes
 
@@ -79,14 +76,8 @@ def logout():
 @api.route("/api/AjouterSerie", methods=["POST"])
 def ADDSerie():
     data = request.get_json()
-    idS = int( data['id'])
-    nameS = data['name']
-    imgurl = data['img']
-    print(idS)
-    print(nameS)
-    print(imgurl)
-    print(session['user_id'])
-    serie = Serie(idtvmaze=idS,name=nameS,img=imgurl,user_id=session['user_id'] )
+    print(data['id'])
+    serie = Serie(idtvmaze=data['id'],name = 'test')
     db.session.add(serie)
     db.session.commit()
     # Ici tu pourras ajouter la logique pour enregistrer en BDD
