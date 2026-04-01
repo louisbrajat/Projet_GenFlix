@@ -12,7 +12,6 @@ from routes import auth,api, login_required
 from flask_session import Session
 from models import db
 
-import os
 
 os.environ["GEMINI_API_KEY"] = "AIzaSyDPB6q4wKCJiohLwQgZLjWqeeikxlduBPM"
 
@@ -26,7 +25,6 @@ app.config["SESSION_TYPE"] = "sqlalchemy"
 app.config["SESSION_SQLALCHEMY"] = db
 
 sess = Session()
-
 app.register_blueprint(auth)
 app.register_blueprint(api)
 
@@ -34,11 +32,9 @@ app.register_blueprint(api)
 def home():
     return render_template('home.html')
 
-
 @app.route('/test-home', methods=['GET'])
 def test_home():
     return render_template("home.html")
-
 
 @app.route('/Mes-Series', methods=['GET'])
 @login_required
