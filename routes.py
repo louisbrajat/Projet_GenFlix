@@ -3,10 +3,7 @@ from flask import Blueprint, Flask, render_template, session, redirect,url_for, 
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
-from models import User , Serie , db, Like
-
-from flask_sqlalchemy import SQLAlchemy
-from flask_session import Session
+from models import User , Serie , db
 
 
 auth = Blueprint('auth', __name__)  # Blueprint = groupe de routes
@@ -85,28 +82,3 @@ def ADDSerie():
     db.session.commit()
     # Ici tu pourras ajouter la logique pour enregistrer en BDD
     return jsonify({"status": "success", "received": data}), 200
-
-"""
-@api.route('/note/<int:serie_id>', methods=['POST'])
-def note(serie_id):
-    data = request.get_json(force=True, silent=True)
-    note = int(data['note'])
-
-    like_existant = Like.query.filter_by(
-        user_id=session['user_id'],
-        serie_id=serie_id
-    ).first()
-
-    if like_existant:
-        like_existant.note = note  # met à jour si déjà existant
-    else:
-        nouveau = Like(
-            note=note,
-            serie_id=serie_id,
-            user_id=session['user_id']
-        )
-        db.session.add(nouveau)
-
-    db.session.commit()
-    return jsonify({'success': True})
-"""

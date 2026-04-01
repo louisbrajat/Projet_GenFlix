@@ -3,11 +3,10 @@ from flask import Flask, render_template, session, redirect, url_for, request, j
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
-from models import User
+from models import User, Serie, db
 from routes import auth,api
 
 from flask_session import Session
-from models import db
 
 sess = Session()
 
@@ -35,9 +34,8 @@ def test_home():
 
 @app.route('/Mes-Series', methods=['GET'])
 def mes_Series():
-    pseudo = session.get('pseudo')
-    print(pseudo)
-    return render_template("Mes-Series.html",user=User.get_by_username(pseudo))
+    user = User.query.get(session['user_id'])
+    return render_template("Mes-Series.html", user=user)
 
 
 

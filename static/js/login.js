@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const result = await response.json();
 
       if (result.success) {
-        window.location.href = '/';
+        window.location.href = '/Mes-Series';
       } else {
         alert(result.message);
       }
