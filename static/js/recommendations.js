@@ -3,8 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const loading = document.getElementById("loading");
     const resultBox = document.getElementById("gemini-result");
     const resultText = document.getElementById("gemini-text");
+    const promptInput = document.getElementById("prompt-input");
 
     button.addEventListener("click", async () => {
+        const prompt = promptInput.value.trim();
+
+        if (!prompt) {
+            alert("Veuillez écrire un prompt.");
+            return;
+        }
+
         loading.classList.remove("hidden");
         resultBox.classList.add("hidden");
         resultText.textContent = "";
@@ -15,20 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    last_series: [
-                        "Breaking Bad",
-                        "Dark",
-                        "Lupin",
-                        "Stranger Things",
-                        "You",
-                        "Elite",
-                        "Narcos",
-                        "Peaky Blinders",
-                        "Vikings",
-                        "The Witcher"
-                    ]
-                })
+                body: JSON.stringify({ prompt: prompt })
             });
 
             const data = await response.json();
