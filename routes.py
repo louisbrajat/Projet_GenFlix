@@ -80,11 +80,9 @@ def logout():
 def ADDSerie():
     data = request.get_json()
     print(data['id'])
-    serie = Serie(idtvmaze=data['id'],name = 'test',imgurl='a' ,summary='b')
+    serie = Serie(idtvmaze=data['id'],name = 'test')
     db.session.add(serie)
     db.session.commit()
-
-    
     # Ici tu pourras ajouter la logique pour enregistrer en BDD
     return jsonify({"status": "success", "received": data}), 200
 

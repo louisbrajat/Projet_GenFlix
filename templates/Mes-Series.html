@@ -1,22 +1,49 @@
 {% extends "base.html" %}
-
-{% block head_includes %}
-
-{% endblock %}
 {% block content %}
 <script src="{{ url_for('static', filename='js/mesSeries.js') }}" defer></script>
 
+
+<div class="haut">
 <form class="ChercherSeries" id=ChercherForm>
     <div class="cher">
-        <label for="Chercher" class="Chercher">Rechercher</label>
         <input type="text" id="Chercher" name="Chercher"/>
     </div>
     <div class="recher">
             <input type="submit" id='recher' value="Rechercher"></input>
     </div>
 </form>
+</div>
+
+<div class="MesSeries" id="MesSeries">
+    <h3>Mes Series</h3>
+    <div class="listeSerie">
+    {% for s in user.serie%}
+    <div class="film">
+    <div class="contenant">
+        <div class="affiche">   
+            <img class="img_film" src="{{s.img}}">
+        </div>
+        <div class="titreFilm">
+            <p>{{s.name}}</p>
+        </div>
+        <div class="bottomFilm">
+        <button class='butSupprimer' data-id-key="{{s.idtvmaze}}">
+        Enlever</button>
+        </div>
+        </div>
+        <div class="notation">
+            <span onclick="gfg(1)" class="star">★</span>
+            <span onclick="gfg(2)" class="star">★</span>
+            <span onclick="gfg(3)" class="star">★</span>
+            <span onclick="gfg(4)" class="star">★</span>
+            <span onclick="gfg(5)" class="star">★</span>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>
 
 <div id="Resulat-Series" class="ConteneurSerie">
-
+    
 </div>
 {% endblock %}

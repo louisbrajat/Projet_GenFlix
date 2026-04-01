@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session, redirect, url_for, request, jsonify
-from google import genai
+#from google import genai
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
@@ -35,7 +35,11 @@ def test_home():
 
 @app.route('/Mes-Series', methods=['GET'])
 def mes_Series():
-    return render_template("Mes-Series.html")
+    pseudo = session.get('pseudo')
+    print(pseudo)
+    return render_template("Mes-Series.html",user=User.get_by_username(pseudo))
+
+
 
 db.init_app(app)
 sess.init_app(app)
