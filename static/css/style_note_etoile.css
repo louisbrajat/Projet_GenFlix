@@ -1,0 +1,124 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0; 
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: green;
+}
+
+header{
+    background-color: #f2b6c180;
+    font-family: "Montserrat", sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 5vh;
+    padding-right: 5vh;
+    height: 6vh;
+}
+
+header h1{
+    font-size: 4vh;
+}
+
+.droite{
+    display: flex;
+    flex-direction: row;
+    gap: 5vh;
+    align-items: center;
+    font-size: 2vh;
+}
+
+.droite p {
+    color:#733F49;
+    font-weight: bold;
+}
+
+button{
+    background-color:#9D7179 ;
+    border-radius: 0.5vh;
+    border: 0.4vh solid #733F49;
+    color: white;
+    padding: 1vh;
+    font-size: 1.5vh;
+    cursor: pointer;
+}
+
+
+.ConteneurSerie{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 95%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.film{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ff4da6;   
+    border: 2px solid #2ecc71; 
+}
+
+.titreFilm{
+    color: greenyellow;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 12px 10px 8px 10px;
+    text-align: center;
+}
+
+.affiche {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.butAjout{
+    margin-top: auto;
+    padding: 12px 24px;
+    background-color: #2ecc71;
+    color: #ffffff;
+    border: 2px solid black;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+/* =============================================
+   ÉTOILES
+============================================= */
+.stars {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    padding: 8px;
+    justify-content: center;
+}
+
+.star {
+    font-size: 1.8rem;
+    color: grey;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star:hover {
+    color: gold;
+}

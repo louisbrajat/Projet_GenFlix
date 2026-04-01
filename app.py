@@ -35,7 +35,11 @@ def test_home():
 
 @app.route('/Mes-Series', methods=['GET'])
 def mes_series():
-    return render_template("Mes-Series.html")
+    pseudo = session.get('pseudo')
+    print(pseudo)
+    return render_template("Mes-Series.html",user=User.get_by_username(pseudo))
+
+
 
 
 @app.route('/test-recommendations', methods=['GET'])
