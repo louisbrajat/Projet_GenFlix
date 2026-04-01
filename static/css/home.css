@@ -74,30 +74,33 @@
 }
 
 .footer {
-    background-color: #f2b6c1; 
-
+    background-color: #000000;
+    font-family: "Montserrat", sans-serif;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-
+    padding-left: 5vh;
+    padding-right: 5vh;
     height: 6vh;
-    width: 100%;
+    border-top:solid 1px #f2b6c1;
+    margin: 0;
+    justify-content: center;
 }
 
 /* Texte lisible */
 .footer-logo {
     font-size: 1.6vh;
     font-weight: bold;
-    color: #733F49;
+    color: #f2b6c1;
 }
 
 .footer-text {
     font-size: 1.2vh;
-    color: #5a2e36;
+    color: #f2b6c1;
 }
 
 .footer-copy {
     font-size: 1vh;
-    color: #5a2e36;
+    color: #f2b6c1;
 }

@@ -4,12 +4,9 @@ from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
 from models import User , Serie , db
-<<<<<<< HEAD
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
-=======
->>>>>>> 170a2d1e0ed1abde524cdf7854b13992d1201307
 
 
 auth = Blueprint('auth', __name__)  # Blueprint = groupe de routes
@@ -116,4 +113,24 @@ def GetAllUser():
     for s in Liste_Serie:
         liste_finale.append(s.to_dict())
     return jsonify(liste_finale)
+
+
+@api.route("/api/Note", methods=["POST"])
+def AddMajNote():
+    data = request.get_json()
+    user_id = session.get('user_id')
+    noteS = data['note']
+    idS = data['ids']
+    if not user_id:
+        return jsonify({"error": "Unauthorized"}), 401
+
+    SerieNote = Serie.query.filter_by(user_id=session['user_id'],idtvmaze=idS).first()
+    SerieNote.note = noteS
+    db.session.commit()
+        
+    #Liste_Serie= Serie.get_All_Serie(user_id=user_id)
+    #liste_finale = []
+    #for s in Liste_Serie:
+     #   liste_finale.append(s.to_dict())
+    return jsonify({"status": "success", "received": data}), 200
 

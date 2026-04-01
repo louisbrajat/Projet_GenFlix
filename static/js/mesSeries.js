@@ -5,7 +5,6 @@ const SeriesConteneur = document.getElementById("Resulat-Series");
       const idSerie = event.target.dataset.idKey;
       const nameS = event.target.dataset.title;
       const imgS = event.target.dataset.img;
-      console.log(idSerie,nameS,imgS)
       AddSerie(idSerie,nameS,imgS)
       event.target.closest('.film').style.display = 'none';
      
@@ -13,6 +12,7 @@ const SeriesConteneur = document.getElementById("Resulat-Series");
 }) 
 
 function AddSerie(idSerie,nameS,imgS) {
+    console.log('hey')
     const jsonfilm = {'id':idSerie,'name':nameS,'img':imgS}
     fetch(`/api/AjouterSerie`, {
         method: 'POST',
@@ -86,11 +86,15 @@ function showShows(show,text) {
     const MesSeries = document.getElementById("MesSeries");
     MesSeries.style.display="none"
     const conteneur = document.getElementById("Resulat-Series");
-    conteneur.innerHTML = `<h3>Résultats de recherche : ${text} </h3>
-                           <div class="listeSerie" id="listeResultats"></div>`;
+    conteneur.innerHTML = `<h3>Résultats de Recherche : ${text} </h3>
+                            <div class="ligneverte"></div>
+                           <div class="listeSerie" id="listeResultats"></div>
+                           `;
     
     const conteneur2 = document.getElementById("listeResultats");
     let template = ""
+
+    
     show.forEach(s => {
         serie = s['show']
         if (serie.image && serie.image.medium) {
@@ -117,4 +121,60 @@ function showShows(show,text) {
 }
 
 
+const cards = document.querySelectorAll('.notation');
+
+cards.forEach(card => {
+
+  const starsContainer = card.querySelector('.stars');
+  const serieId = starsContainer.dataset.star;
+
+
+  const stars = card.querySelectorAll('.star');
+  
+
+  const initialNote = parseInt(starsContainer.dataset.note);
+
+  if (initialNote > 0) {
+    updateStars(stars, initialNote, 'selected');
+  }
+
+  let currentRating = initialNote;
+
+  stars.forEach(star => {
+    star.addEventListener('mouseenter', () => {
+      const val = parseInt(star.dataset.value);
+      updateStars(stars, val, 'hovered');
+    });
+
+    star.addEventListener('click', () => {
+      currentRating = parseInt(star.dataset.value);
+      updateStars(stars, currentRating, 'selected');
+      MajAjoutNote(currentRating,serieId)
+    });
+  });
+});
+
+
+function MajAjoutNote(currentRating,serieId) {
+    const jsonfilm = {'note':currentRating,'ids':serieId}
+    fetch(`/api/Note`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(jsonfilm)
+    }).then(response => response.json()).then(data => {
+            return data
+    })
+}
+
+function updateStars(stars, limit, className) {
+  stars.forEach(s => {
+    const starValue = parseInt(s.dataset.value);
+
+    if(starValue <= limit){
+        s.classList.add(className);
+    }else{
+        s.classList.remove(className);
+    }
+  });
+}
 

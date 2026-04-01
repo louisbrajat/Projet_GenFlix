@@ -12,11 +12,11 @@ body {
     display: flex;
     flex-direction: column;
     background: #000000;
-    background: linear-gradient(0deg,#000000 85%, #f2b6c1 100%);
+    background: linear-gradient(0deg,#000000 85%, #2ecc71 100%);
 }
 
 strong{
-    color: #2ecc71;
+    color: #f2b6c1;
 }
 
 header{
@@ -49,7 +49,7 @@ h3{
 }
 
 .droite p {
-    color:#2ecc71;
+    color:#f2b6c1;
     font-weight: bold;
 }
 
@@ -114,25 +114,44 @@ button{
     margin-left: 20px;
 }
 
-
-.ConteneurSerie {
+.bodySerie{
     display: flex;
-    flex-direction: row;
-    gap: 20px;
-    width: 30%;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column; /* Pour que les éléments s'empilent verticalement */
+    align-items: center;    /* Centre horizontalement tous les enfants directs */
+    width: 100%;
 }
+
+
+.MesSeries {
+    width: 95%;
+}
+
+.ligneverte{
+    background-color: #2ecc71;
+    height: 2px;
+    width: 20%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.MesSeries h3 {
+    text-align: left;
+    padding-left: 0; 
+
+}
+
 
 
 .listeSerie{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 25px;
     width: 100%;
     flex-wrap: wrap;
     justify-content: center;
+    margin: 0 auto;
+    justify-content: flex-start;
 }
 .film{
     display: flex;
@@ -178,8 +197,8 @@ button{
     transition: opacity 0.3s ease;
 }
 .butAjout {
-    background-color: #2ecc7011;
-    color: #2ecc71;
+    background-color: #2ecc709f;
+    color: white;
     font-style: italic;
     border: none;
     padding: 10px 15px;
@@ -191,8 +210,8 @@ button{
 }
 
 .butSupprimer{
-    background-color: #cc2e2e36;
-    color: #cc2e2e;
+    background-color: #cc2e2ebc;
+    color: white;
     font-style: italic;
     border: none;
     padding: 10px 15px;
@@ -203,15 +222,24 @@ button{
     height: 100%; 
 }
 
-.notation {
-    display: flex;
-    justify-content: center;
-    color: #ffcc00;         /* Couleur or pour les étoiles */
-    font-size: 1.2rem;
-    cursor: pointer;
+.star {
+  cursor: pointer;
+  color: #898989;
+  transition: color 0.2s;
 }
 
+
+.star.hovered {
+  color: #ffca08;
+}
+
+
+.star.selected {
+  color: #ffd700;
+}
+
+
 .film:hover .bottomFilm {
-    opacity: 1; /* Le bouton apparaît quand on survole la carte */
+    opacity: 1; 
 }
 

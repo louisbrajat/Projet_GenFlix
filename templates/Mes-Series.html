@@ -20,9 +20,10 @@
     </div>
 </form>
 </div>
-
+<div class='bodySerie'>
 <div class="MesSeries" id="MesSeries">
-    <h3>Mes Series</h3>
+    <h3>Mes Series<strong>.</strong></h3>
+    <div class="ligneverte"></div>
     <div class="listeSerie">
     {% for s in user.serie%}
     <div class="film">
@@ -39,18 +40,22 @@
         </div>
         </div>
         <div class="notation">
-            <span onclick="gfg(1)" class="star">★</span>
-            <span onclick="gfg(2)" class="star">★</span>
-            <span onclick="gfg(3)" class="star">★</span>
-            <span onclick="gfg(4)" class="star">★</span>
-            <span onclick="gfg(5)" class="star">★</span>
+          <div class="stars" id="stars" data-star="{{s.idtvmaze}}" data-note="{{s.note}}">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+          </div>
         </div>
     </div>
     {% endfor %}
     </div>
 </div>
-
-<div id="Resulat-Series" class="ConteneurSerie">
-    
+    <div class="MesSeries" id="MesSeries2">
+    <div id="Resulat-Series" class="listeSerie">
+    </div>
+</div> 
 </div>
+
 {% endblock %}
