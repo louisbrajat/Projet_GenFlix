@@ -18,6 +18,7 @@ class Serie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     idtvmaze = db.Column(db.Integer, nullable=False)
     name = db.Column(db.String(), unique=True, nullable=False)
+    note = db.Column(db.Integer())
     img = db.Column(db.String())
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     user = db.relationship("User", backref="serie")
