@@ -91,3 +91,30 @@ def ADDSerie():
     db.session.commit()
     # Ici tu pourras ajouter la logique pour enregistrer en BDD
     return jsonify({"status": "success", "received": data}), 200
+
+
+
+@api.route("/api/RemoveSerie/<int:key_id>", methods=["DELETE"])
+def Remove(key_id):
+    SerieR = Serie.query.filter_by(user_id=session['user_id'],idtvmaze=key_id).first()
+    db.session.delete(SerieR)
+    db.session.commit()
+    if SerieR:
+        db.session.delete(SerieR)
+        db.session.commit()
+        return jsonify({"status": "success", "message": "Série supprimée"}), 200
+    else:
+        return jsonify({"status": "error", "message": "Série non trouvée"}), 404
+    
+
+@api.route("/api/GetSerieUser", methods=["GET"])
+def GetAllUser():
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({"error": "Unauthorized"}), 401
+    
+    Liste_Serie= Serie.get_All_Serie(user_id=user_id)
+    liste_finale = []
+    for s in Liste_Serie:
+        liste_finale.append(s.to_dict())
+    return jsonify(liste_finale)

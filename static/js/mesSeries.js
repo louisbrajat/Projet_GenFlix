@@ -12,7 +12,6 @@ const SeriesConteneur = document.getElementById("Resulat-Series");
     }
 }) 
 
-
 function AddSerie(idSerie,nameS,imgS) {
     const jsonfilm = {'id':idSerie,'name':nameS,'img':imgS}
     fetch(`/api/AjouterSerie`, {
@@ -24,8 +23,28 @@ function AddSerie(idSerie,nameS,imgS) {
     })
 }
 
+//const boutonsSupprimer = document.querySelectorAll('.butSupprimer');
 
+for (const btn of document.querySelectorAll('.butSupprimer')) {
+ btn.addEventListener('click', async () => {
+ const keyId = btn.dataset.idKey;
 
+ const film = btn.closest('.film');
+ fetch(`/api/RemoveSerie/${keyId}`, {method:"DELETE"})
+    .then(response=> {
+        if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Erreur lors de la suppression');
+    }).then(data => {
+                console.log("Réponse du serveur:", data);
+                // Si le serveur confirme le succès, on retire la carte du HTML
+                if (film) {
+                    film.remove(); 
+                }
+            }).catch(error => console.error("Error", error));
+})
+}
 
 const form = document.querySelector('#ChercherForm')    
 form.addEventListener('submit', function (event) {
@@ -36,11 +55,29 @@ form.addEventListener('submit', function (event) {
 
 
 function RechercherSeries(text) {
-    fetch(`https://api.tvmaze.com/search/shows?q=${text}`)
-    .then(response => response.json())
-    .then(data => {
-        showShows(data,text)
-    })
+    fetch(`/api/GetSerieUser`)
+        .then(response => response.json())
+        .then(mesSeries => {
+            fetch(`https://api.tvmaze.com/search/shows?q=${text}`)
+            .then(response => response.json())
+            .then(data => {
+                const serieBDID = mesSeries.map(s => s.serie_idtvmaze);
+                let listSerie = []
+                data.forEach(d => {
+                    if (serieBDID.includes(d.show.id)) {
+                        console.log("On ignore le doublon :", d.show.name);
+                    } else {
+                        listSerie.push(d);
+                    }
+                });
+                console.log(listSerie)
+                showShows(listSerie,text)
+            })
+            console.log("Mes séries en DB :", mesSeries);
+        })
+
+
+    
 }
 
 function showShows(show,text) {
