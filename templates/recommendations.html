@@ -5,6 +5,12 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/recommendations.css') }}">
 <script src="{{ url_for('static', filename='js/recommendations.js') }}" defer></script>
 
+{% for serie in recommendations %}
+            <p>{{ serie['nom_de_serie'] }}</p>    
+            <p>{{ serie['explication'] }}</p>
+            <p>{{ serie['resume'] }}</p>          
+{% endfor %}
+    
 <div class="reco-wrapper">
 
     <div class="MesSeries" id="MesSeries">
