@@ -1,3 +1,10 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0; 
+    font-family: "Montserrat", sans-serif;
+}
+
 /* =============================================
    VARIABLES
 ============================================= */
@@ -97,10 +104,15 @@ body {
   display: inline-block;
 }
 
+
 .logo__name {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--text);
+    font-size: 4vh;
+    color: white;
+}
+
+
+strong{
+  color: #f2b6c1;
 }
 
 /* =============================================
@@ -204,12 +216,4 @@ body {
   text-align: center;
   font-size: 0.85rem;
   color: var(--muted);
-}
-
-/* =============================================
-   RESPONSIVE
-============================================= */
-@media (max-width: 480px) {
-  .card { padding: 2rem 1.5rem; }
-  .card__title { font-size: 1.9rem; }
 }

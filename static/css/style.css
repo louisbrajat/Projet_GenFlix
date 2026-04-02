@@ -53,15 +53,59 @@ h3{
     font-weight: bold;
 }
 
-button{
-    background-color:#9D7179 ;
-    border-radius: 0.5vh;
-    border: 0.4vh solid #733F49;
-    color: white;
-    padding: 1vh;
-    font-size: 1.5vh;
-    cursor: pointer;
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 14px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  background: #2ecc7067;
+  color: #e8f5e9;
+  border: 1.5px solid #2ecc71;
+  border-radius: 999px;
+  cursor: pointer;
+  letter-spacing: 0.4px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  box-shadow: 0 0 8px #2ecc7155,
+              inset 0 0 8px #2ecc7118;
 }
+button:hover {
+  background: #5afa8aba;
+  border-color: #5afa8a;
+  color: #fff;
+  box-shadow: 0 0 14px #2ecc7199,
+              inset 0 0 10px #2ecc7130;
+}
+button:active { transform: scale(0.97); }
+button.sm { padding: 5px 14px; font-size: 0.72rem; }
+
+.btnDeco {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 14px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  background: #f2b6c157;
+  color: #e8f5e9;
+  border: 1.5px solid #f2b6c1;
+  border-radius: 999px;
+  cursor: pointer;
+  letter-spacing: 0.4px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  box-shadow: 0 0 8px #f2b6c181,
+              inset 0 0 8px #f2b6c118;
+}
+.btnDeco:hover  {   
+  background: #f2b6c1c5;
+  border-color: #f2b6c1;
+  color: #fff;
+  box-shadow: 0 0 14px #f2b6c199,
+              inset 0 0 10px #f2b6c130;}
+.btnDeco:active { transform: scale(0.97); }
+
+.btnDeco.sm { padding: 5px 14px; font-size: 0.72rem; }
 
 .haut{
     display: flex;

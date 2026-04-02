@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Connexion</title>
-  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/login_register.css') }}" />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 </head>
 <body>
 
@@ -19,8 +18,7 @@
 
     <div class="card__header">
       <div class="logo">
-        <span class="logo__dot"></span>
-        <span class="logo__name">GenFlix</span>
+        <h1 class="logo__name">GenFlix<strong>.</strong></h1>
       </div>
       <p class="card__subtitle">Connectez-vous à votre espace.</p>
     </div>
@@ -53,7 +51,7 @@
         />
       </div>
 
-      <button id="btnLogin" class="btn" type="submit">
+      <button id="btnLogin" class="btnLogin" type="submit">
         <span>Se connecter</span>
       </button>
     </form>
