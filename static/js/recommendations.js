@@ -1,13 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
+    initFilterGeminiRecommendations();
+    initRecommendationOverlays();
+});
+
+/* =========================
+   TA GENERATION (FILTRES)
+========================= */
+function initFilterGeminiRecommendations() {
     const button = document.getElementById("gemini-btn");
     const loading = document.getElementById("loading");
     const resultBox = document.getElementById("gemini-result");
-    const resultText = document.getElementById("gemini-text");
-    const promptInput = document.getElementById("prompt-input");
+    const emptyState = document.getElementById("empty-state");
+    const errorBox = document.getElementById("error-box");
     const customNote = document.getElementById("custom-note");
-    const refreshPromptBtn = document.getElementById("refresh-prompt-btn");
-    const seriesCards = document.querySelectorAll(".serie-item");
     const chips = document.querySelectorAll(".chip");
+
+    if (!button) return;
 
     function getSelectedValues(selector) {
         return Array.from(document.querySelectorAll(selector))
@@ -22,54 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return div.innerHTML;
     }
 
-    function renderRecommendations(recommendations) {
-        if (!resultBox) return;
-
-        if (!recommendations || recommendations.length === 0) {
-            resultBox.innerHTML = `
-                <div class="empty-state">
-                    Aucune suggestion n’a été générée. Essaie avec d’autres filtres.
-                </div>
-            `;
-            resultBox.classList.remove("hidden");
-            if (emptyState) emptyState.classList.add("hidden");
-            return;
-        }
-
-        const cards = recommendations.map((item) => {
-            const title = escapeHtml(item.nom_de_serie || "Série recommandée");
-            const genre = escapeHtml(item.genre || "Non précisé");
-            const match = escapeHtml(String(item.niveau_match || "90"));
-            const why = escapeHtml(item.pourquoi_ce_choix || "");
-            const resume = escapeHtml(item.resume || "");
-
-            return `
-                <article class="recommendation-card">
-                    <div class="recommendation-top">
-                        <h4 class="recommendation-title">${title}</h4>
-                        <span class="match-badge">${match}% match</span>
-                    </div>
-
-                    <div class="meta-row">
-                        <span class="meta-pill">${genre}</span>
-                    </div>
-
-                    <div class="recommendation-section">
-                        <h4>Pourquoi ce choix</h4>
-                        <p>${why}</p>
-                    </div>
-
-                    <div class="recommendation-section">
-                        <h4>Résumé</h4>
-                        <p>${resume}</p>
-                    </div>
-                </article>
-            `;
-        }).join("");
-
-        resultBox.innerHTML = cards;
-        resultBox.classList.remove("hidden");
-        if (emptyState) emptyState.classList.add("hidden");
+    function showError(message) {
+        if (!errorBox) return;
+        errorBox.textContent = message;
+        errorBox.classList.remove("hidden");
     }
 
     function clearError() {
@@ -78,129 +42,195 @@ document.addEventListener("DOMContentLoaded", () => {
         errorBox.classList.add("hidden");
     }
 
-    function showError(message) {
-        if (!errorBox) return;
-        errorBox.textContent = message;
-        errorBox.classList.remove("hidden");
+    /* 🔥 RENDER PROPRE */
+    function renderRecommendations(recommendations) {
+    if (!resultBox) return;
+
+    if (!recommendations || recommendations.length === 0) {
+        resultBox.innerHTML = `<p class="empty-state">Aucune suggestion.</p>`;
+        resultBox.classList.remove("hidden");
+        return;
     }
+
+    const html = `
+        <div class="bodySerie">
+            <div class="MesSeries" id="MesSeries">
+                <div class="listeSerie">
+                    ${recommendations.map(s => {
+                        const genres = (s.genres || [])
+                            .map(g => `<span class="badge">${g}</span>`)
+                            .join("");
+
+                        return `
+                            <div class="film">
+                                <div class="contenant serie-item" data-title="${s.name}">
+                                    <div class="affiche">
+                                        <img class="img_film" src="${s.img}" alt="${s.name}">
+                                    </div>
+                                    <div class="titreFilm">
+                                        <p>${s.name}</p>
+                                    </div>
+                                    <div class="bottomFilm">
+                                        <button class="butEnsavoirplus" data-id-key="${s.idserimaze}">
+                                            En savoir +
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="Hoverinformation" id="info-${s.idserimaze}">
+                                <div class="info-content">
+                                    <div class="info-poster">
+                                        <img src="${s.imgbig}" alt="${s.name}">
+                                    </div>
+
+                                    <div class="info-corp">
+                                        <div class="info-header">
+                                            <div class="info-title-area">
+                                                <h2>${s.name}</h2>
+                                                <div class="meta-data">
+                                                    <span class="note-globale">★ <strong>${s.note}</strong>/10</span>
+                                                    <div class="genres">
+                                                        ${genres}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="info-body">
+                                            <div class="section">
+                                                <h4>L'avis de l'IA</h4>
+                                                <p class="explication">${s.explication || ""}</p>
+                                            </div>
+
+                                            <div class="section">
+                                                <h4>Pourquoi regarder ?</h4>
+                                                <p class="donner-envie">${s.donnerenvi || ""}</p>
+                                            </div>
+
+                                            <div class="section">
+                                                <h4>Résumé</h4>
+                                                <p class="OHHH">${s.resume || ""}</p>
+                                            </div>
+
+                                            <div class="section">
+                                                <h4>Une petite Référence</h4>
+                                                <p class="ref">${s.ref || ""}</p>
+                                            </div>
+
+                                            <div class="section">
+                                                <h4>Une petite Faim</h4>
+                                                <p class="repas">${s.repas || ""}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join("")}
+                </div>
+            </div>
+        </div>
+    `;
+
+    resultBox.innerHTML = html;
+    resultBox.classList.remove("hidden");
+    emptyState?.classList.add("hidden");
+}
+
 
     chips.forEach(chip => {
         chip.addEventListener("click", () => {
             chip.classList.toggle("active");
-            buildPrompt();
         });
     });
 
-    if (customNote) {
-        customNote.addEventListener("input", buildPrompt);
-    }
-
-    if (refreshPromptBtn) {
-        refreshPromptBtn.addEventListener("click", buildPrompt);
-    }
-
-    buildPrompt();
-
-    if (!button) return;
-
     button.addEventListener("click", async () => {
-        const prompt = promptInput ? promptInput.value.trim() : "";
+        clearError();
 
-        const lastSeries = Array.from(seriesCards)
-            .map(card => card.dataset.title)
-            .filter(Boolean);
+        const genres = getSelectedValues(".genre-chip");
+        const moods = getSelectedValues(".mood-chip");
+        const paces = getSelectedValues(".pace-chip");
+        const styles = getSelectedValues(".style-chip");
+        const popularity = getSelectedValues(".popularity-chip");
+        const formats = getSelectedValues(".format-chip");
+        const extra = customNote ? customNote.value.trim() : "";
 
-        if (!prompt) {
-            alert("Veuillez écrire un prompt.");
-            return;
-        }
-
-        if (lastSeries.length === 0) {
-            alert("Aucune série disponible pour générer des recommandations.");
+        if (
+            !genres.length &&
+            !moods.length &&
+            !paces.length &&
+            !styles.length &&
+            !popularity.length &&
+            !formats.length &&
+            !extra
+        ) {
+            showError("Choisis au moins un filtre.");
             return;
         }
 
         loading?.classList.remove("hidden");
         resultBox?.classList.add("hidden");
-        if (resultText) resultText.textContent = "";
 
         try {
-            const response = await fetch("/api/recommendations/gemini", {
+            const response = await fetch("/api/recommendations/gemini/filters", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    prompt: prompt,
-                    last_series: lastSeries
+                    genres,
+                    moods,
+                    paces,
+                    styles,
+                    popularity,
+                    formats,
+                    extra
                 })
             });
 
             const data = await response.json();
 
             if (!response.ok) {
-                if (resultText) {
-                    resultText.textContent = data.error || "Erreur lors de la génération.";
-                }
-            } else {
-                if (resultText) {
-                    resultText.textContent = data.result;
-                }
+                showError(data.error || "Erreur serveur");
+                return;
             }
 
-            resultBox?.classList.remove("hidden");
+            renderRecommendations(data.recommendations);
         } catch (error) {
-            if (resultText) {
-                resultText.textContent = "Erreur de connexion au serveur.";
-            }
-            resultBox?.classList.remove("hidden");
+            showError("Erreur connexion serveur");
         } finally {
             loading?.classList.add("hidden");
         }
     });
-});
+}
 
+/* =========================
+   OVERLAY (NE PAS TOUCHER)
+========================= */
+function initRecommendationOverlays() {
+    const buttons = document.querySelectorAll(".butEnsavoirplus");
+    const overlays = document.querySelectorAll(".Hoverinformation");
 
-
-
-
-
-const buttons = document.querySelectorAll('.butEnsavoirplus');
-
-const overlays = document.querySelectorAll('.Hoverinformation');
-
-buttons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
+    buttons.forEach(btn => {
+        btn.addEventListener("click", (e) => {
             e.preventDefault();
             const serieId = btn.dataset.idKey;
             const targetInfo = document.getElementById(`info-${serieId}`);
 
             if (targetInfo) {
-                targetInfo.style.display = 'flex'; // 'flex' pour centrer le contenu
-                document.body.style.overflow = 'hidden'; // Bloque le scroll
+                targetInfo.style.display = "flex";
+                document.body.style.overflow = "hidden";
             }
         });
     });
 
-  overlays.forEach(overlay => {
-        overlay.addEventListener('click', function(e) {
-            // Ferme uniquement si on clique sur le fond noir (l'overlay)
-            // et non sur la boîte blanche (le contenu)
+    overlays.forEach(overlay => {
+        overlay.addEventListener("click", function(e) {
             if (e.target === this) {
-                this.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Réactive le scroll
+                this.style.display = "none";
+                document.body.style.overflow = "auto";
             }
         });
     });
-
-    // Optionnel : Fermer avec la touche Échap
-    document.addEventListener('keydown', (e) => {
-        if (e.key === "Escape") {
-            overlays.forEach(ov => {
-                if (ov.style.display === 'flex') {
-                    ov.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
-        }
-    });
+}

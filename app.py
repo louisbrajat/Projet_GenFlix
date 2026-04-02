@@ -1,7 +1,7 @@
 import json
 import requests
 import os
-
+from dotenv import load_dotenv
 from flask import Flask, render_template, session, redirect, url_for, request, jsonify, g
 from google import genai
 from google.genai import types
@@ -14,7 +14,9 @@ from routes import auth, api, login_required
 from flask_session import Session
 from models import db
 
-os.environ["GEMINI_API_KEY"] = "AIzaSyBwY6Jtl1WEOcWrSWroO6QLowyoR6rcJUU"
+load_dotenv()
+
+os.getenv["GEMINI_API_KEY"]
 
 app = Flask(__name__)
 
@@ -204,7 +206,6 @@ Référence : Monte le curseur sur le côté "clin d'œil absurde" et rigolo. L'
                 temperature=0.7,
             )
         )
-
         return json.loads(response.text)
 
     except Exception as e:
