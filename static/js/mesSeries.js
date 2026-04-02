@@ -103,7 +103,7 @@ function showShows(show,text) {
         if (serie.image && serie.image.medium) {
             img= serie.image.medium
         }else{
-             img = "https://www.pngegg.com/fr/png-bmmcf"
+             img = 'static/css/imagesansfilm.png'
         }
         template += `
            <div class="film">

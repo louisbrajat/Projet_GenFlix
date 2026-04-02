@@ -16,7 +16,7 @@ from models import db
 
 load_dotenv()
 
-os.getenv["GEMINI_API_KEY"]
+os.getenv("GEMINI_API_KEY")
 
 app = Flask(__name__)
 
@@ -55,9 +55,9 @@ def recommendations():
     if "user_id" not in session:
         return redirect(url_for('auth.login'))
     
-    #geminireponse = gemini_recommendations()
+    geminireponse = gemini_recommendations()
 
-    geminireponse = [
+    """geminireponse = [
     {
         'name': 'The Mandalorian',
         'explication': "Réalisation impeccable, visuels époustouflants et rythme d'action soutenu.",
@@ -114,7 +114,7 @@ def recommendations():
         'repas': "Cupcakes multicolores Barbe à papa Barres de la Horde",
         'ref': "Maurice Leblanc Sherlock Holmes Braquages à la française"
     }
-]
+]"""
     series = []
     for serie in geminireponse:
         name = serie['name']
@@ -125,8 +125,8 @@ def recommendations():
                     img= data.get('image', {}).get('medium')
                     imggros = data.get('image', {}).get('original')
                 else:
-                    img = 'https://www.pngegg.com/fr/png-bmmcf'
-                    imggros= 'https://www.pngegg.com/fr/png-bmmcf'
+                    img = 'static/css/imagesansfilm.png'
+                    imggros= 'static/css/imagesansfilm.png'
 
                 series.append({'idserimaze':data.get('id'),
                                'name':data.get('name'),

@@ -108,9 +108,9 @@ function initFilterGeminiRecommendations() {
                                                 <p class="donner-envie">${s.donnerenvi || ""}</p>
                                             </div>
 
-                                            <div class="section">
+                                            <div class="section OHHH">
                                                 <h4>Résumé</h4>
-                                                <p class="OHHH">${s.resume || ""}</p>
+                                                <p>${s.resume || ""}</p>
                                             </div>
 
                                             <div class="section">
@@ -209,28 +209,26 @@ function initFilterGeminiRecommendations() {
    OVERLAY (NE PAS TOUCHER)
 ========================= */
 function initRecommendationOverlays() {
-    const buttons = document.querySelectorAll(".butEnsavoirplus");
-    const overlays = document.querySelectorAll(".Hoverinformation");
+    document.addEventListener("click", (e) => {
+        const button = e.target.closest(".butEnsavoirplus");
 
-    buttons.forEach(btn => {
-        btn.addEventListener("click", (e) => {
+        if (button) {
             e.preventDefault();
-            const serieId = btn.dataset.idKey;
+            const serieId = button.dataset.idKey;
             const targetInfo = document.getElementById(`info-${serieId}`);
 
             if (targetInfo) {
                 targetInfo.style.display = "flex";
                 document.body.style.overflow = "hidden";
             }
-        });
-    });
+            return;
+        }
 
-    overlays.forEach(overlay => {
-        overlay.addEventListener("click", function(e) {
-            if (e.target === this) {
-                this.style.display = "none";
-                document.body.style.overflow = "auto";
-            }
-        });
+        const overlay = e.target.closest(".Hoverinformation");
+
+        if (overlay && e.target === overlay) {
+            overlay.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
     });
 }

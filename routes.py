@@ -243,7 +243,6 @@ def reco_filters():
 
     geminireponse = gemini_filtre(genres, moods, paces, styles, popularity, formats, extra)
     series = []
-    print(geminireponse)
     for serie in geminireponse:
         name = serie['name']
         response = requests.get(f"https://api.tvmaze.com/singlesearch/shows?q={name}")
@@ -253,8 +252,8 @@ def reco_filters():
                     img= data.get('image', {}).get('medium')
                     imggros = data.get('image', {}).get('original')
                 else:
-                    img = 'https://www.pngegg.com/fr/png-bmmcf'
-                    imggros= 'https://www.pngegg.com/fr/png-bmmcf'
+                    img = 'static/css/imagesansfilm.png'
+                    imggros= 'static/css/imagesansfilm.png'
 
                 series.append({'idserimaze':data.get('id'),
                                'name':data.get('name'),
@@ -345,7 +344,7 @@ Référence : Monte le curseur sur le côté "clin d'œil absurde" et rigolo. L'
 """
 
         response = client.models.generate_content(
-            model="gemini-2.5-flash-lite",
+            model="gemini-2.5-flash",
             contents=full_prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
