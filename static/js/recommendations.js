@@ -16,40 +16,72 @@ document.addEventListener("DOMContentLoaded", () => {
             .filter(Boolean);
     }
 
-    function buildPrompt() {
-        const genres = getSelectedValues(".genre-chip");
-        const moods = getSelectedValues(".mood-chip");
-        const styles = getSelectedValues(".style-chip");
-        const extra = customNote ? customNote.value.trim() : "";
+    function escapeHtml(value) {
+        const div = document.createElement("div");
+        div.textContent = value || "";
+        return div.innerHTML;
+    }
 
-        let prompt = `Je veux des recommandations cohérentes avec mes séries préférées.
-Réponds en français.
-Propose 5 séries maximum.
-Pour chaque suggestion, donne :
-- le nom de la série
-- le genre principal
-- une explication courte et claire
-- pourquoi elle correspond à mes goûts.`;
+    function renderRecommendations(recommendations) {
+        if (!resultBox) return;
 
-        if (genres.length > 0) {
-            prompt += `\n\nGenres souhaités : ${genres.join(", ")}.`;
+        if (!recommendations || recommendations.length === 0) {
+            resultBox.innerHTML = `
+                <div class="empty-state">
+                    Aucune suggestion n’a été générée. Essaie avec d’autres filtres.
+                </div>
+            `;
+            resultBox.classList.remove("hidden");
+            if (emptyState) emptyState.classList.add("hidden");
+            return;
         }
 
-        if (moods.length > 0) {
-            prompt += `\nAmbiance recherchée : ${moods.join(", ")}.`;
-        }
+        const cards = recommendations.map((item) => {
+            const title = escapeHtml(item.nom_de_serie || "Série recommandée");
+            const genre = escapeHtml(item.genre || "Non précisé");
+            const match = escapeHtml(String(item.niveau_match || "90"));
+            const why = escapeHtml(item.pourquoi_ce_choix || "");
+            const resume = escapeHtml(item.resume || "");
 
-        if (styles.length > 0) {
-            prompt += `\nÉléments importants : ${styles.join(", ")}.`;
-        }
+            return `
+                <article class="recommendation-card">
+                    <div class="recommendation-top">
+                        <h4 class="recommendation-title">${title}</h4>
+                        <span class="match-badge">${match}% match</span>
+                    </div>
 
-        if (extra) {
-            prompt += `\nContraintes ou préférences supplémentaires : ${extra}`;
-        }
+                    <div class="meta-row">
+                        <span class="meta-pill">${genre}</span>
+                    </div>
 
-        if (promptInput) {
-            promptInput.value = prompt;
-        }
+                    <div class="recommendation-section">
+                        <h4>Pourquoi ce choix</h4>
+                        <p>${why}</p>
+                    </div>
+
+                    <div class="recommendation-section">
+                        <h4>Résumé</h4>
+                        <p>${resume}</p>
+                    </div>
+                </article>
+            `;
+        }).join("");
+
+        resultBox.innerHTML = cards;
+        resultBox.classList.remove("hidden");
+        if (emptyState) emptyState.classList.add("hidden");
+    }
+
+    function clearError() {
+        if (!errorBox) return;
+        errorBox.textContent = "";
+        errorBox.classList.add("hidden");
+    }
+
+    function showError(message) {
+        if (!errorBox) return;
+        errorBox.textContent = message;
+        errorBox.classList.remove("hidden");
     }
 
     chips.forEach(chip => {

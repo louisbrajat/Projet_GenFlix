@@ -10,6 +10,7 @@ from flask_session import Session
 
 import json
 import os
+import requests
 from google import genai
 from google.genai import types
 
@@ -158,6 +159,40 @@ def AddMajNote():
     return jsonify({"status": "success", "received": data}), 200
 
 
+def get_tvmaze_image(show_name):
+    try:
+        response = requests.get(
+            "https://api.tvmaze.com/search/shows",
+            params={"q": show_name},
+            timeout=5
+        )
+        response.raise_for_status()
+        data = response.json()
+
+        if not data:
+            return ""
+
+        first_show = data[0].get("show", {})
+        image = first_show.get("image")
+
+        if image:
+            return image.get("original") or image.get("medium") or ""
+
+        return ""
+    except Exception as e:
+        print("ERREUR IMAGE TVMAZE :", e)
+        return ""
+
+
+def enrich_with_images(recommendations):
+    enriched = []
+    for reco in recommendations:
+        reco_copy = dict(reco)
+        reco_copy["image"] = get_tvmaze_image(reco_copy.get("nom_de_serie", ""))
+        enriched.append(reco_copy)
+    return enriched
+
+
 def local_fallback_recommendations(genres, moods, paces, styles, popularity, formats, extra):
     genre_map = {
         "thriller": [
@@ -294,6 +329,7 @@ def generate_gemini_recommendations():
         recommendations = local_fallback_recommendations(
             genres, moods, paces, styles, popularity, formats, extra
         )
+        recommendations = enrich_with_images(recommendations)
         return jsonify({"recommendations": recommendations}), 200
 
     response_schema = types.Schema(
@@ -368,6 +404,7 @@ Contraintes :
         )
 
         recommendations = json.loads(response.text)
+        recommendations = enrich_with_images(recommendations)
         return jsonify({"recommendations": recommendations}), 200
 
     except Exception as e:
@@ -375,5 +412,5 @@ Contraintes :
         recommendations = local_fallback_recommendations(
             genres, moods, paces, styles, popularity, formats, extra
         )
+        recommendations = enrich_with_images(recommendations)
         return jsonify({"recommendations": recommendations}), 200
-
