@@ -130,6 +130,9 @@ Pour chaque suggestion, donne :
 
 
 
+
+
+
 const buttons = document.querySelectorAll('.butEnsavoirplus');
 
 const overlays = document.querySelectorAll('.Hoverinformation');
