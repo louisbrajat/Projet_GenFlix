@@ -33,6 +33,8 @@ app.register_blueprint(api)
 
 @app.route('/', methods=['GET'])
 def home():
+    if "user_id" in session:
+        return redirect(url_for('mes_series'))
     return render_template('home.html')
 
 
