@@ -4,8 +4,83 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/recommendations.css') }}">
 <script src="{{ url_for('static', filename='js/recommendations.js') }}" defer></script>
 
-<div class="reco-page">
 
+
+<div class='bodySerie'>
+<div class="MesSeries" id="MesSeries">
+    <h3>Mes Recommendations<strong>.</strong></h3>
+    <div class="ligneverte"></div>
+    <div class="listeSerie">
+    {% for s in recommendations%}
+    <div class="film">
+    <div class="contenant">
+        <div class="affiche">   
+            <img class="img_film" src="{{s.img}}">
+        </div>
+        <div class="titreFilm">
+            <p>{{s.name}}</p>
+        </div>
+        <div class="bottomFilm">
+            <button class='butEnsavoirplus' data-id-key="{{s.idserimaze}}">En savoir +</button>
+        </div>
+    </div>
+    </div>
+    <div class="Hoverinformation" id="info-{{s.idserimaze}}">
+    <div class="info-content"> 
+        <div class="info-poster">
+            <img src="{{s.imgbig}}">
+        </div>
+
+        <div class="info-corp">           
+            <div class="info-header">
+                <div class="info-title-area">
+                    <h2>{{ s.name }}</h2>
+                    <div class="meta-data">
+                        <span class="note-globale">★ <strong>{{ s.note }}</strong>/10</span>
+                        <div class="genres">
+                            {% for genre in s.genres %}
+                                <span class="badge">{{ genre }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-body">
+                <div class="section">
+                    <h4>L'avis de l'IA</h4>
+                    <p class="explication">{{s.explication | safe }}</p>
+                </div>
+
+                <div class="section">
+                    <h4>Pourquoi regarder ?</h4>
+                    <p class="donner-envie">{{s.donnerenvi | safe}}</p>
+                </div>
+
+                <div class="section">
+                    <h4>Résumé</h4>
+                    <p class="OHHH">{{s.resume | safe}}</p>
+                </div>
+
+                <div class="section">
+                    <h4>Une petite Réference </h4>
+                    <p class="ref">{{s.ref| safe}}</p>
+                </div>
+
+                <div class="section">
+                    <h4>Une petite Faim</h4>
+                    <p class="repas">{{s.repas| safe}}</p>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+    {% endfor %}
+    </div>
+    </div>
+    </div>
+
+<div class="reco-page">
     <section class="reco-hero">
         <div class="reco-hero-text">
             <h2>Des recommandations faites pour toi<strong>.</strong></h2>
