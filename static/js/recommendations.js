@@ -162,6 +162,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
+
+
 const buttons = document.querySelectorAll('.butEnsavoirplus');
 
 const overlays = document.querySelectorAll('.Hoverinformation');

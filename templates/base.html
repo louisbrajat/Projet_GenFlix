@@ -18,13 +18,16 @@
             {% if session['user'] %}
                 <p>{{ session.user }}</p>
                 <button id="btnDeconnexion" class="btnDeco">Se déconnecter </button>
-                <button id="btnDeconnexion" class="login">Mes Series </button>
-                <button id="btnDeconnexion" class="login">Recommendation </button>
+                {% if page != 'mes_series' %}
+                  <button id="btnMesSeries" class="btnMesSeries">Mes séries</button>
+                {% endif %}
+                {% if page != 'recommandations' %}
+                  <button id="btnRecommendations" class="btnRecommendations">Recommandations</button>
+                {% endif %}
             {% else %}
-                <button id="btnConnexion" class="login">Se connecter</button>
+                <button id="btnConnexion" class="BtnConnexion">Se connecter</button>
             {% endif %}
         </div>
-        
     </header>
     {% block content %}
     {% endblock %}

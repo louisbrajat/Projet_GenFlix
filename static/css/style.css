@@ -53,6 +53,7 @@ h3{
     font-weight: bold;
 }
 
+/*
 button {
   display: inline-flex;
   align-items: center;
@@ -79,6 +80,93 @@ button:hover {
 }
 button:active { transform: scale(0.97); }
 button.sm { padding: 5px 14px; font-size: 0.72rem; }
+*/
+
+.btnMesSeries {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 14px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  background: #2ecc7067;
+  color: #e8f5e9;
+  border: 1.5px solid #2ecc71;
+  border-radius: 999px;
+  cursor: pointer;
+  letter-spacing: 0.4px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  box-shadow: 0 0 8px #2ecc7155,
+              inset 0 0 8px #2ecc7118;
+}
+.btnMesSeries:hover {
+  background: #5afa8aba;
+  border-color: #5afa8a;
+  color: #fff;
+  box-shadow: 0 0 14px #2ecc7199,
+              inset 0 0 10px #2ecc7130;
+}
+.btnMesSeries:active { transform: scale(0.97); }
+.btnMesSeries.sm { padding: 5px 14px; font-size: 0.72rem; }
+
+ 
+
+.btnRecommendations {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 14px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  background: #2ecc7067;
+  color: #e8f5e9;
+  border: 1.5px solid #2ecc71;
+  border-radius: 999px;
+  cursor: pointer;
+  letter-spacing: 0.4px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  box-shadow: 0 0 8px #2ecc7155,
+              inset 0 0 8px #2ecc7118;
+}
+.btnRecommendations:hover {
+  background: #5afa8aba;
+  border-color: #5afa8a;
+  color: #fff;
+  box-shadow: 0 0 14px #2ecc7199,
+              inset 0 0 10px #2ecc7130;
+}
+.btnRecommendations:active { transform: scale(0.97); }
+.btnRecommendations.sm { padding: 5px 14px; font-size: 0.72rem; }
+
+
+ 
+
+.BtnConnexion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 14px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  background: #2ecc7067;
+  color: #e8f5e9;
+  border: 1.5px solid #2ecc71;
+  border-radius: 999px;
+  cursor: pointer;
+  letter-spacing: 0.4px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  box-shadow: 0 0 8px #2ecc7155,
+              inset 0 0 8px #2ecc7118;
+}
+.BtnConnexion:hover {
+  background: #5afa8aba;
+  border-color: #5afa8a;
+  color: #fff;
+  box-shadow: 0 0 14px #2ecc7199,
+              inset 0 0 10px #2ecc7130;
+}
+.BtnConnexion:active { transform: scale(0.97); }
+.BtnConnexion.sm { padding: 5px 14px; font-size: 0.72rem; }
 
 .btnDeco {
   display: inline-flex;

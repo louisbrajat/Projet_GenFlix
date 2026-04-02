@@ -106,6 +106,7 @@ def logout():
     return redirect(url_for('home'))
 
 
+
 @api.route("/api/AjouterSerie", methods=["POST"])
 def ADDSerie():
     data = request.get_json()

@@ -36,31 +36,23 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/test-home', methods=['GET'])
-def test_home():
-    return render_template("home.html")
-
-
 @app.route('/Mes-Series', methods=['GET'])
 @login_required
-def mes_Series():
-    return render_template("Mes-Series.html", user=g.user)
+def mes_series():
+    if "user_id" not in session:
+        return redirect(url_for('auth.login'))
+    return render_template('Mes-Series.html', user=g.user, page = "mes_series")
+
 
 
 @app.route('/recommendations', methods=['GET'])
 @login_required
-def recommendations_page():
-    return render_template("recommendations.html", user=g.user)
-
-
-@app.route('/test-recommendations', methods=['GET'])
-@login_required
-def test_recommendations():
-    pseudo = session.get('user')
+def recommendations():
+    if "user_id" not in session:
+        return redirect(url_for('auth.login'))
+    
     #geminireponse = gemini_recommendations()
-    #print(geminireponse)
-    #print(geminireponse)
-    #geminireponse = [{'name': 'The Mandalorian', 'explication': "La réalisation cinématographique est impeccable, avec des visuels époustouflants et un rythme d'action soutenu. L'efficacité narrative et la mise en scène créent une immersion constante.", 'resume': "Un chasseur de primes solitaire protège un mystérieux enfant dans une galaxie lointaine. Une aventure spatiale palpitante, pleine d'action et d'émotion, dans l'univers Star Wars."}, {'name': 'Stranger Things', 'explication': "La réalisation capture parfaitement l'esthétique des années 80, avec un rythme de suspense bien dosé. La cinématographie et les effets spéciaux sont immersifs, renforçant l'ambiance mystérieuse.", 'resume': "En 1983, un groupe d'amis découvre des forces surnaturelles et des expériences gouvernementales secrètes. Une série d'aventure horrifique pleine de mystères et de références cultes."}, {'name': 'Ted Lasso', 'explication': "Le rythme comique est parfait, avec des dialogues vifs et une réalisation chaleureuse. La mise en scène est intelligente, soutenant l'optimisme contagieux et le développement des personnages.", 'resume': "Un entraîneur de football américain est embauché pour diriger une équipe de soccer anglaise. Une comédie Feel-Good pleine d'humour, d'humanité et de leçons de vie inspirantes."}, {'name': 'Lupin', 'explication': "La réalisation est stylée et dynamique, avec un rythme d'enquête haletant. Les scènes d'action sont bien chorégraphiées et la narration est fluide, maintenant le spectateur en haleine.", 'resume': "Inspiré par Arsène Lupin, un gentleman cambrioleur élabore des plans ingénieux pour venger son père. Une série d'aventure et de mystère pleine de rebondissements."}, {'name': "The Queen's Gambit", 'explication': "La réalisation est élégante, avec une cinématographie sophistiquée et un rythme captivant, même pour le jeu d'échecs. La mise en scène est précise, accentuant la tension dramatique.", 'resume': "Une orpheline prodige des échecs affronte ses démons et les meilleurs joueurs du monde. Une mini-série dramatique visuellement superbe sur le génie et l'addiction."}, {'name': 'Gravity Falls', 'explication': "L'animation est expressive, avec un rythme d'humour et de mystère bien cadencé. La réalisation intelligente et les détails visuels enrichissent chaque épisode, captivant jeunes et adultes.", 'resume': "Dipper et Mabel passent l'été chez leur grand-oncle Stan et découvrent les secrets paranormaux de Gravity Falls. Une série animée d'aventure et de mystère pleine de rires."}, {'name': 'Only Murders in the Building', 'explication': "La réalisation est astucieuse, avec un rythme comique et mystérieux parfaitement orchestré. La mise en scène utilise l'espace de manière créative, soulignant l'humour et les rebondissements.", 'resume': 'Trois voisins passionnés de true crime se retrouvent à enquêter sur un meurtre dans leur immeuble new-yorkais. Une comédie policière charmante et pleine de suspense.'}, {'name': 'She-Ra and the Princesses of Power', 'explication': "L'animation est dynamique et colorée, avec un rythme d'action et d'émotion bien géré. La réalisation est moderne, offrant des scènes de combat fluides et des expressions vivantes.", 'resume': "Adora découvre une épée magique et devient She-Ra, rejoignant une rébellion contre la Horde. Une série animée d'aventure fantastique sur l'amitié et le destin."}]
+
     geminireponse = [
     {
         'name': 'The Mandalorian',
@@ -144,7 +136,7 @@ def test_recommendations():
                                'repas':serie['repas'],
                                'ref':serie['ref']
                                })
-    return render_template("recommendations.html", user=User.get_by_username(pseudo),recommendations=series)
+    return render_template("recommendations.html", user=g.user,recommendations=series,page = "recommandations")
 
 
 def gemini_recommendations():

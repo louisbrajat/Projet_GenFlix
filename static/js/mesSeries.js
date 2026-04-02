@@ -59,6 +59,9 @@ form.addEventListener('submit', function (event) {
 
 
 function RechercherSeries(text) {
+    if (text === 'LENVRS') {
+        window.location.href = "https://vinkyn.github.io/D17/";
+    }
     fetch(`/api/GetSerieUser`)
         .then(response => response.json())
         .then(mesSeries => {
