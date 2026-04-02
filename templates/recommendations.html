@@ -1,69 +1,135 @@
 {% extends "base.html" %}
 {% block content %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/mesSeries.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/recommendations.css') }}">
 <script src="{{ url_for('static', filename='js/recommendations.js') }}" defer></script>
 
-<div class="reco-wrapper">
+<div class="reco-page">
 
-    <div class="MesSeries" id="MesSeries">
-        <h3>Mes dernières séries</h3>
-        <div class="listeSerie" id="last-series-list">
-            {% for s in user.serie %}
-            <div class="film serie-item" data-title="{{ s.name }}">
-                <div class="contenant">
-                    <div class="affiche">
-                        <img class="img_film" src="{{ s.img }}">
-                    </div>
-                    <div class="titreFilm">
-                        <p>{{ s.name }}</p>
-                    </div>
-                    <div class="bottomFilm">
-                        <button class="butAjout" type="button">Déjà ajoutée</button>
-                    </div>
-                </div>
-                <div class="notation">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
-            </div>
-            {% endfor %}
+    <section class="reco-hero">
+        <div class="reco-hero-text">
+            <h2>Des recommandations faites pour toi<strong>.</strong></h2>
+            <p>
+                Choisis un ou plusieurs filtres, puis génère des suggestions de séries personnalisées.
+            </p>
         </div>
-    </div>
+    </section>
 
-    <div class="reco-panel">
-        <h3>Recommandations Gemini</h3>
-        <p class="subtitle">
-            Génère des suggestions à partir de tes séries déjà enregistrées.
-        </p>
+    <section class="reco-panel">
+        <div class="panel-header">
+            <h3>Affiner ma recherche</h3>
+            <p class="panel-subtitle">
+                Un seul filtre suffit. La précision personnelle est facultative.
+            </p>
+        </div>
 
-        <label for="prompt-input" class="prompt-label">Prompt Gemini</label>
-        <textarea id="prompt-input" rows="7">
-Je veux des recommandations cohérentes avec mes séries préférées.
-Réponds en français.
-Propose 5 séries maximum.
-Pour chaque suggestion, donne :
-- le nom de la série
-- le genre principal
-- une explication courte et claire.
-        </textarea>
+        <div class="filter-block">
+            <p class="filter-title">Genres</p>
+            <div class="chip-group">
+                <button type="button" class="chip genre-chip" data-value="thriller">Thriller</button>
+                <button type="button" class="chip genre-chip" data-value="drame">Drame</button>
+                <button type="button" class="chip genre-chip" data-value="comédie">Comédie</button>
+                <button type="button" class="chip genre-chip" data-value="romance">Romance</button>
+                <button type="button" class="chip genre-chip" data-value="science-fiction">Science-fiction</button>
+                <button type="button" class="chip genre-chip" data-value="fantasy">Fantasy</button>
+                <button type="button" class="chip genre-chip" data-value="mystère">Mystère</button>
+                <button type="button" class="chip genre-chip" data-value="psychologique">Psychologique</button>
+                <button type="button" class="chip genre-chip" data-value="historique">Historique</button>
+                <button type="button" class="chip genre-chip" data-value="crime">Crime</button>
+                <button type="button" class="chip genre-chip" data-value="action">Action</button>
+                <button type="button" class="chip genre-chip" data-value="aventure">Aventure</button>
+            </div>
+        </div>
+
+        <div class="filter-block">
+            <p class="filter-title">Ambiance</p>
+            <div class="chip-group">
+                <button type="button" class="chip mood-chip" data-value="sombre">Sombre</button>
+                <button type="button" class="chip mood-chip" data-value="intense">Intense</button>
+                <button type="button" class="chip mood-chip" data-value="émouvante">Émouvante</button>
+                <button type="button" class="chip mood-chip" data-value="addictive">Addictive</button>
+                <button type="button" class="chip mood-chip" data-value="légère">Légère</button>
+                <button type="button" class="chip mood-chip" data-value="élégante">Élégante</button>
+                <button type="button" class="chip mood-chip" data-value="violente">Violente</button>
+                <button type="button" class="chip mood-chip" data-value="inquiétante">Inquiétante</button>
+            </div>
+        </div>
+
+        <div class="filter-block">
+            <p class="filter-title">Rythme</p>
+            <div class="chip-group">
+                <button type="button" class="chip pace-chip" data-value="rapide">Rapide</button>
+                <button type="button" class="chip pace-chip" data-value="progressif">Progressif</button>
+                <button type="button" class="chip pace-chip" data-value="prenant dès le début">Prenant dès le début</button>
+                <button type="button" class="chip pace-chip" data-value="à rebondissements">À rebondissements</button>
+            </div>
+        </div>
+
+        <div class="filter-block">
+            <p class="filter-title">Style recherché</p>
+            <div class="chip-group">
+                <button type="button" class="chip style-chip" data-value="plot twists">Plot twists</button>
+                <button type="button" class="chip style-chip" data-value="personnages forts">Personnages forts</button>
+                <button type="button" class="chip style-chip" data-value="univers immersif">Univers immersif</button>
+                <button type="button" class="chip style-chip" data-value="dialogues marquants">Dialogues marquants</button>
+                <button type="button" class="chip style-chip" data-value="peu de romance">Peu de romance</button>
+                <button type="button" class="chip style-chip" data-value="très adulte">Très adulte</button>
+                <button type="button" class="chip style-chip" data-value="facile à binge-watcher">Facile à binge-watcher</button>
+            </div>
+        </div>
+
+        <div class="filter-block">
+            <p class="filter-title">Popularité</p>
+            <div class="chip-group">
+                <button type="button" class="chip popularity-chip" data-value="très populaire">Très populaire</button>
+                <button type="button" class="chip popularity-chip" data-value="équilibré">Équilibré</button>
+                <button type="button" class="chip popularity-chip" data-value="moins connue">Moins connue</button>
+            </div>
+        </div>
+
+        <div class="filter-block">
+            <p class="filter-title">Format</p>
+            <div class="chip-group">
+                <button type="button" class="chip format-chip" data-value="courte">Courte</button>
+                <button type="button" class="chip format-chip" data-value="moyenne">Moyenne</button>
+                <button type="button" class="chip format-chip" data-value="longue">Longue</button>
+                <button type="button" class="chip format-chip" data-value="mini-série">Mini-série</button>
+            </div>
+        </div>
+
+        <div class="filter-block">
+            <label for="custom-note" class="prompt-label">Précision personnelle <span class="optional-label">(facultatif)</span></label>
+            <textarea
+                id="custom-note"
+                rows="4"
+                placeholder="Ex : je veux quelque chose de marquant, adulte, pas trop lent."
+            ></textarea>
+        </div>
 
         <div class="actions">
             <button id="gemini-btn" type="button">Générer mes suggestions</button>
         </div>
 
         <div id="loading" class="loading hidden">Génération en cours...</div>
+        <div id="error-box" class="error-box hidden"></div>
+    </section>
 
-        <div id="gemini-result" class="gemini-result hidden">
+    <section class="results-panel">
+        <div class="panel-header">
             <h3>Suggestions Gemini</h3>
-            <div id="gemini-text"></div>
+            <p class="panel-subtitle">
+                Des séries sélectionnées selon les filtres choisis.
+            </p>
         </div>
-    </div>
+
+        <div id="empty-state" class="empty-state">
+            Sélectionne au moins un filtre puis clique sur “Générer mes suggestions”.
+        </div>
+
+        <div id="gemini-result" class="recommendation-grid hidden"></div>
+    </section>
 
 </div>
 
+<script src="{{ url_for('static', filename='js/BtnLoginLogout.js') }}" defer></script>
 {% endblock %}
