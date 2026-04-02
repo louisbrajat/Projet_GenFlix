@@ -7,6 +7,8 @@
     gap: 3vh;
 }
 
+ 
+
 .reco-hero {
     width: 100%;
     margin-top: 3vh;
@@ -17,11 +19,15 @@
     box-shadow: 0 0 30px rgba(242, 182, 193, 0.05);
 }
 
+ 
+
 .reco-hero-text h2 {
     color: white;
     font-size: 3.5vh;
     margin-bottom: 1vh;
 }
+
+ 
 
 .reco-hero-text p {
     color: #f4f4f4;
@@ -29,6 +35,8 @@
     line-height: 1.8;
     max-width: 900px;
 }
+
+ 
 
 .reco-panel,
 .results-panel {
@@ -40,14 +48,20 @@
     box-shadow: 0 0 30px rgba(242, 182, 193, 0.04);
 }
 
+ 
+
 .panel-header {
     margin-bottom: 2.5vh;
 }
+
+ 
 
 .panel-header h3 {
     font-size: 2.8vh;
     margin-bottom: 0.7vh;
 }
+
+ 
 
 .panel-subtitle {
     color: #f2b6c1;
@@ -55,9 +69,13 @@
     line-height: 1.7;
 }
 
+ 
+
 .filter-block {
     margin-bottom: 2.5vh;
 }
+
+ 
 
 .filter-title {
     color: white;
@@ -66,17 +84,23 @@
     margin-bottom: 1vh;
 }
 
+ 
+
 .optional-label {
     color: #f2b6c1;
     font-size: 1.4vh;
     font-weight: 500;
 }
 
+ 
+
 .chip-group {
     display: flex;
     flex-wrap: wrap;
     gap: 1vh;
 }
+
+ 
 
 .chip {
     background-color: rgba(157, 113, 121, 0.18);
@@ -89,11 +113,15 @@
     transition: 0.2s ease;
 }
 
+ 
+
 .chip:hover {
     background-color: #9D7179;
     color: white;
     transform: translateY(-1px);
 }
+
+ 
 
 .chip.active {
     background-color: #2ecc71;
@@ -102,6 +130,8 @@
     box-shadow: 0 0 15px rgba(46, 204, 113, 0.25);
 }
 
+ 
+
 .prompt-label {
     display: block;
     color: white;
@@ -109,6 +139,8 @@
     margin-bottom: 1vh;
     font-weight: 600;
 }
+
+ 
 
 #custom-note {
     width: 100%;
@@ -124,16 +156,22 @@
     min-height: 14vh;
 }
 
+ 
+
 #custom-note:focus {
     border-color: #2ecc71;
     box-shadow: 0 0 0 0.2vh rgba(46, 204, 113, 0.08);
 }
+
+ 
 
 .actions {
     margin-top: 2.5vh;
     display: flex;
     justify-content: flex-start;
 }
+
+ 
 
 #gemini-btn {
     background-color: #9D7179;
@@ -146,16 +184,22 @@
     transition: 0.2s ease;
 }
 
+ 
+
 #gemini-btn:hover {
     background-color: #b7838d;
     transform: translateY(-1px);
 }
+
+ 
 
 .loading {
     margin-top: 2vh;
     color: #f2b6c1;
     font-size: 1.8vh;
 }
+
+ 
 
 .error-box {
     margin-top: 2vh;
@@ -168,6 +212,8 @@
     line-height: 1.6;
 }
 
+ 
+
 .empty-state {
     color: #d8d8d8;
     font-size: 1.7vh;
@@ -175,12 +221,16 @@
     padding: 2vh 0;
 }
 
+ 
+
 .recommendation-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2vh;
     margin-top: 2vh;
 }
+
+ 
 
 .recommendation-card {
     background: rgba(255, 255, 255, 0.03);
@@ -194,15 +244,21 @@
     transition: 0.2s ease;
 }
 
+ 
+
 .recommendation-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
+ 
+
 .recommendation-poster {
     width: 100%;
     height: 100%;
 }
+
+ 
 
 .recommendation-image,
 .placeholder-image {
@@ -215,6 +271,8 @@
     background: rgba(255, 255, 255, 0.04);
 }
 
+ 
+
 .placeholder-image {
     display: flex;
     align-items: center;
@@ -225,11 +283,15 @@
     padding: 2vh;
 }
 
+ 
+
 .recommendation-content {
     display: flex;
     flex-direction: column;
     gap: 1.3vh;
 }
+
+ 
 
 .recommendation-top {
     display: flex;
@@ -238,12 +300,16 @@
     gap: 1vh;
 }
 
+ 
+
 .recommendation-title {
     color: white;
     font-size: 2.2vh;
     font-weight: 700;
     line-height: 1.4;
 }
+
+ 
 
 .match-badge {
     background-color: rgba(46, 204, 113, 0.16);
@@ -255,11 +321,15 @@
     white-space: nowrap;
 }
 
+ 
+
 .meta-row {
     display: flex;
     flex-wrap: wrap;
     gap: 0.8vh;
 }
+
+ 
 
 .meta-pill {
     background-color: rgba(242, 182, 193, 0.12);
@@ -270,6 +340,8 @@
     font-size: 1.2vh;
 }
 
+ 
+
 .recommendation-section h4 {
     color: #2ecc71;
     font-size: 1.45vh;
@@ -278,20 +350,28 @@
     letter-spacing: 0.05em;
 }
 
+ 
+
 .recommendation-section p {
     color: white;
     font-size: 1.5vh;
     line-height: 1.7;
 }
 
+ 
+
 .hidden {
     display: none;
 }
+
+ 
 
 @media (max-width: 900px) {
     .recommendation-card {
         grid-template-columns: 1fr;
     }
+
+ 
 
     .recommendation-image,
     .placeholder-image {
@@ -299,18 +379,26 @@
     }
 }
 
+ 
+
 @media (max-width: 768px) {
     .reco-page {
         width: 92%;
     }
 
+ 
+
     .reco-hero-text h2 {
         font-size: 3vh;
     }
 
+ 
+
     .panel-header h3 {
         font-size: 2.4vh;
     }
+
+ 
 
     .recommendation-grid {
         grid-template-columns: 1fr;
@@ -318,6 +406,8 @@
 }
 
 
+
+ 
 
 .Hoverinformation {
     position: fixed;
@@ -334,6 +424,8 @@
     display: none;
 }
 
+ 
+
 .info-content {
     background: #000000;
     background: linear-gradient(0deg,#000000 80%, #f2b6c1 100%);
@@ -344,6 +436,8 @@
     position: relative;
 }
 
+ 
+
 .info-poster img {
     width: 100%;
     height: 100%;
@@ -351,14 +445,18 @@
     display: block;
 }
 
+ 
+
 .info-corp {
     padding: 25px;
     flex: 1;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    color: white; 
+    color: white;
 }
+
+ 
 
 .info-title-area h2 {
     font-size: 1.5rem;
@@ -367,6 +465,8 @@
     font-weight: 800;
 }
 
+ 
+
 .meta-data {
     display: flex;
     align-items: center;
@@ -374,10 +474,14 @@
     margin-bottom: 20px;
 }
 
+ 
+
 .note-globale {
     font-size: 0.8rem;
     color: #f2b6c1;
 }
+
+ 
 
 .badge {
     background: #00000000;
@@ -389,9 +493,13 @@
     text-transform: uppercase;
 }
 
+ 
+
 .section {
     margin-bottom: 20px;
 }
+
+ 
 
 .section h4 {
     color: #2ecc71; /* Vert pour les titres de section */
@@ -402,6 +510,8 @@
     margin-bottom: 5px;
 }
 
+ 
+
 /* Amélioration de la lisibilité du texte */
 .explication, .donner-envie, .OHHH ,.repas, .ref{
     line-height: 1.6;
@@ -409,6 +519,8 @@
     color: #dbdbdb; /* Un peu plus sombre que le titre pour la hiérarchie */
 }
 
+
+ 
 
 .butEnsavoirplus{
     background-color: #000000a0;
@@ -420,5 +532,5 @@
     font-weight: bold;
     font-size: 1rem;
     width: 100%;
-    height: 100%; 
+    height: 100%;
 }
