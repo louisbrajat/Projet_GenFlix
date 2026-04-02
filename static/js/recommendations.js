@@ -40,26 +40,37 @@ document.addEventListener("DOMContentLoaded", () => {
             const match = escapeHtml(String(item.niveau_match || "90"));
             const why = escapeHtml(item.pourquoi_ce_choix || "");
             const resume = escapeHtml(item.resume || "");
+            const image = escapeHtml(item.image || "");
+
+            const imageBlock = image
+                ? `<img class="recommendation-image" src="${image}" alt="${title}">`
+                : `<div class="recommendation-image placeholder-image">Image indisponible</div>`;
 
             return `
                 <article class="recommendation-card">
-                    <div class="recommendation-top">
-                        <h4 class="recommendation-title">${title}</h4>
-                        <span class="match-badge">${match}% match</span>
+                    <div class="recommendation-poster">
+                        ${imageBlock}
                     </div>
 
-                    <div class="meta-row">
-                        <span class="meta-pill">${genre}</span>
-                    </div>
+                    <div class="recommendation-content">
+                        <div class="recommendation-top">
+                            <h4 class="recommendation-title">${title}</h4>
+                            <span class="match-badge">${match}% match</span>
+                        </div>
 
-                    <div class="recommendation-section">
-                        <h4>Pourquoi ce choix</h4>
-                        <p>${why}</p>
-                    </div>
+                        <div class="meta-row">
+                            <span class="meta-pill">${genre}</span>
+                        </div>
 
-                    <div class="recommendation-section">
-                        <h4>Résumé</h4>
-                        <p>${resume}</p>
+                        <div class="recommendation-section">
+                            <h4>Pourquoi ce choix</h4>
+                            <p>${why}</p>
+                        </div>
+
+                        <div class="recommendation-section">
+                            <h4>Résumé</h4>
+                            <p>${resume}</p>
+                        </div>
                     </div>
                 </article>
             `;
